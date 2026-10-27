@@ -1,0 +1,12 @@
+{
+  "name": "potentiate",
+  "description": "Open skills for thoughtful business development, by potentiate.bio.",
+  "owner": { "name": "potentiate.bio", "url": "https://potentiate.bio" },
+  "plugins": [
+    {
+      "name": "thoughtful-outreach",
+      "source": "./",
+      "description": "Score attendee and prospect lists against your ICP, research the shortlist, refine your ICP from your overrides. Research only."
+    }
+  ]
+}

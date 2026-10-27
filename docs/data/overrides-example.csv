@@ -1,0 +1,8 @@
+Company,Segment,AITier,YourTier,Reason,Scope
+Northbank Central Laboratories,Central lab,C,X,"At this workshop central labs are exhibiting specialty bioanalysis — they're competing, not referring",event
+Cobblestone Clinical Labs,Central lab,C,X,Booth lists PK and ADA testing,event
+Tarnwell Central Lab Services,Central lab,C,X,Same — pitching bioanalysis here,event
+Cindermoss Bio,Preclinical sponsor (IND within ~12 months),B,A,Press release confirms first-in-human in Q1,
+Velloway Bio,Preclinical sponsor (IND within ~12 months),B,A,IND filed last month,
+Eastmoor University Medical Center,Academic medical center (investigator-initiated trials),B,X,Investigator-initiated trials almost never fund regulated bioanalysis,core
+Halcyon Trial Partners,Full-service clinical CRO (subcontracts bioanalysis),A,A,Their acquired lab only runs safety labs — still a buyer,

@@ -1,0 +1,368 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Research Briefing</title>
+<style>
+:root{
+  --bg:#f6f6f4; --panel:#fff; --panel2:#fbfbfa; --ink:#1a1a18; --ink2:#5c5c56; --ink3:#8a8a82;
+  --line:#e3e3de; --line2:#efefea; --a:#0f7a5a; --a-bg:#e4f3ed; --b:#9a6a10; --b-bg:#f8efdc;
+  --c:#2a5fa8; --c-bg:#e5eefa; --x:#6f6f68; --x-bg:#ececE7; --spot:#8b2f7a; --spot-bg:#f8e8f5;
+  --deal:#a83232; --deal-bg:#fbe8e6; --warn:#8a5a00; --warn-bg:#fdf3dc; --ov:#5b3fc4; --ov-bg:#eeeafc;
+  --sel:#1a1a18; --focus:#2a5fa8; color-scheme:light;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#131313; --panel:#1b1b1a; --panel2:#202020; --ink:#ececE8; --ink2:#a3a39c; --ink3:#77776f;
+  --line:#2e2e2c; --line2:#262625; --a:#4bc79b; --a-bg:#12332a; --b:#d9a441; --b-bg:#33280f;
+  --c:#7aa9e8; --c-bg:#152538; --x:#9a9a92; --x-bg:#262625; --spot:#e07ccb; --spot-bg:#33162c;
+  --deal:#f08a80; --deal-bg:#3a1a17; --warn:#e8b85c; --warn-bg:#352a12; --ov:#a996ff; --ov-bg:#241d3f;
+  --sel:#ececE8; --focus:#7aa9e8; color-scheme:dark;
+}}
+:root[data-theme="dark"]{
+  --bg:#131313; --panel:#1b1b1a; --panel2:#202020; --ink:#ececE8; --ink2:#a3a39c; --ink3:#77776f;
+  --line:#2e2e2c; --line2:#262625; --a:#4bc79b; --a-bg:#12332a; --b:#d9a441; --b-bg:#33280f;
+  --c:#7aa9e8; --c-bg:#152538; --x:#9a9a92; --x-bg:#262625; --spot:#e07ccb; --spot-bg:#33162c;
+  --deal:#f08a80; --deal-bg:#3a1a17; --warn:#e8b85c; --warn-bg:#352a12; --ov:#a996ff; --ov-bg:#241d3f;
+  --sel:#ececE8; --focus:#7aa9e8; color-scheme:dark;
+}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background:var(--bg);color:var(--ink);font:14px/1.45 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;-webkit-font-smoothing:antialiased}
+button,input,select,textarea{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--focus);outline-offset:2px}
+.wrap{max-width:1180px;margin:0 auto;padding:0 16px}
+header.top{padding:20px 0 12px;display:flex;gap:12px;align-items:flex-start;justify-content:space-between;flex-wrap:wrap}
+h1{font-size:20px;margin:0;letter-spacing:-.01em}
+.sub{color:var(--ink2);font-size:13px;margin-top:2px}
+.actions{display:flex;gap:6px;flex-wrap:wrap;align-items:center}
+.btn{border:1px solid var(--line);background:var(--panel);padding:6px 11px;border-radius:7px;cursor:pointer;font-size:13px;white-space:nowrap}
+.btn:hover{border-color:var(--ink3)}
+.btn.primary{background:var(--sel);color:var(--bg);border-color:var(--sel)}
+.btn.ghost{background:transparent}
+.btn:disabled{opacity:.45;cursor:default}
+.event{display:flex;gap:6px;align-items:center;font-size:13px;color:var(--ink2)}
+.event input{border:1px solid var(--line);background:var(--panel);border-radius:7px;padding:5px 8px;width:200px}
+.stats{display:flex;gap:8px;flex-wrap:wrap;margin:4px 0 12px}
+.stat{background:var(--panel);border:1px solid var(--line);border-radius:9px;padding:8px 12px;min-width:110px}
+.stat b{display:block;font-size:18px;font-variant-numeric:tabular-nums}
+.stat span{font-size:12px;color:var(--ink2)}
+.bar{position:sticky;top:0;z-index:5;background:var(--bg);border-bottom:1px solid var(--line);padding:10px 0}
+.bar .row{display:flex;gap:6px;flex-wrap:wrap;align-items:center}
+.bar .row+.row{margin-top:8px}
+.chip{border:1px solid var(--line);background:var(--panel);border-radius:999px;padding:4px 10px;font-size:12.5px;cursor:pointer;user-select:none}
+.chip[aria-pressed="true"]{background:var(--sel);color:var(--bg);border-color:var(--sel)}
+.chip.tA[aria-pressed="true"]{background:var(--a);border-color:var(--a);color:#fff}
+.chip.tB[aria-pressed="true"]{background:var(--b);border-color:var(--b);color:#fff}
+.chip.tC[aria-pressed="true"]{background:var(--c);border-color:var(--c);color:#fff}
+.chip.tX[aria-pressed="true"]{background:var(--x);border-color:var(--x);color:#fff}
+:root[data-theme="dark"] .chip[class*=" t"][aria-pressed="true"]{color:#111}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .chip[class*=" t"][aria-pressed="true"]{color:#111}}
+select,.search{border:1px solid var(--line);background:var(--panel);border-radius:7px;padding:5px 8px;font-size:13px;max-width:100%}
+.search{flex:1;min-width:180px}
+.sep{width:1px;height:20px;background:var(--line);margin:0 2px}
+.shown{font-size:12.5px;color:var(--ink2);margin-left:auto;white-space:nowrap}
+main{padding:14px 0 60px}
+.tierhead{display:flex;align-items:baseline;gap:8px;margin:18px 0 8px}
+.tierhead h2{font-size:15px;margin:0}
+.tierhead span{color:var(--ink2);font-size:12.5px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:10px;margin-bottom:8px;overflow:hidden}
+.card.ovr{border-color:var(--ov)}
+.ch{display:flex;gap:10px;align-items:center;padding:10px 12px;cursor:pointer}
+.ch:hover{background:var(--panel2)}
+.ch input{width:16px;height:16px;flex:none;cursor:pointer}
+.cname{font-weight:600;min-width:0;overflow:hidden;text-overflow:ellipsis}
+.tags{display:flex;gap:5px;flex-wrap:wrap;align-items:center;flex:1;min-width:0}
+.tag{font-size:11.5px;border-radius:5px;padding:1px 6px;white-space:nowrap;border:1px solid transparent}
+.tag.tierA{background:var(--a-bg);color:var(--a)} .tag.tierB{background:var(--b-bg);color:var(--b)}
+.tag.tierC{background:var(--c-bg);color:var(--c)} .tag.tierX{background:var(--x-bg);color:var(--x)}
+.tag.seg{background:var(--panel2);color:var(--ink2);border-color:var(--line2)}
+.tag.spot{background:var(--spot-bg);color:var(--spot)} .tag.crm{background:var(--c-bg);color:var(--c)}
+.tag.deal{background:var(--deal-bg);color:var(--deal)} .tag.bord{background:var(--warn-bg);color:var(--warn)}
+.tag.ov{background:var(--ov-bg);color:var(--ov)}
+.count{color:var(--ink3);font-size:12px;white-space:nowrap}
+.caret{color:var(--ink3);transition:transform .15s;flex:none}
+.card.open .caret{transform:rotate(90deg)}
+.cb{display:none;border-top:1px solid var(--line2);padding:10px 12px 12px}
+.card.open .cb{display:block}
+.why{color:var(--ink2);margin:0 0 6px}
+.why b{color:var(--ink)}
+.bnote{background:var(--warn-bg);color:var(--warn);border-radius:7px;padding:6px 9px;margin:6px 0;font-size:13px}
+.ovbox{display:flex;gap:6px;flex-wrap:wrap;align-items:center;margin:8px 0 10px;padding:8px;border:1px dashed var(--line);border-radius:8px}
+.ovbox label{font-size:12.5px;color:var(--ink2)}
+.ovbox input[type=text]{flex:1;min-width:200px;border:1px solid var(--line);background:var(--panel);border-radius:7px;padding:5px 8px;font-size:13px}
+.people{list-style:none;margin:0;padding:0}
+.people li{display:flex;gap:10px;align-items:flex-start;padding:6px 0;border-top:1px solid var(--line2)}
+.people li:first-child{border-top:0}
+.people input{margin-top:3px;width:15px;height:15px;flex:none;cursor:pointer}
+.pn{font-weight:550}
+.pt{color:var(--ink2);font-size:13px}
+.pm{display:flex;gap:5px;flex-wrap:wrap;margin-top:3px}
+.pm .tag{background:var(--panel2);color:var(--ink2);border-color:var(--line2)}
+.pm .tag.rec{background:var(--a-bg);color:var(--a);border-color:transparent}
+.pnote{font-size:12.5px;color:var(--warn);margin-top:2px}
+.empty{background:var(--panel);border:1px dashed var(--line);border-radius:12px;padding:28px;text-align:center;margin-top:24px}
+.empty h2{margin:0 0 6px;font-size:17px}
+.empty p{color:var(--ink2);margin:0 auto 14px;max-width:560px}
+.drop{outline:2px dashed var(--focus);outline-offset:-8px}
+.none{color:var(--ink2);padding:30px 0;text-align:center}
+dialog{border:1px solid var(--line);border-radius:12px;background:var(--panel);color:var(--ink);padding:0;width:min(760px,calc(100vw - 32px))}
+dialog::backdrop{background:rgba(0,0,0,.35)}
+.dh{padding:14px 16px 0;display:flex;justify-content:space-between;align-items:center;gap:10px}
+.dh h3{margin:0;font-size:16px}
+.db{padding:10px 16px 16px}
+.db p{color:var(--ink2);margin:0 0 8px;font-size:13px}
+textarea{width:100%;height:280px;border:1px solid var(--line);border-radius:8px;background:var(--panel2);padding:8px;font:12px/1.4 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;resize:vertical}
+.df{display:flex;gap:6px;justify-content:flex-end;margin-top:10px;flex-wrap:wrap}
+.toast{position:fixed;bottom:16px;left:50%;transform:translateX(-50%);background:var(--sel);color:var(--bg);padding:8px 14px;border-radius:8px;font-size:13px;opacity:0;transition:opacity .2s;pointer-events:none;z-index:50}
+.toast.on{opacity:1}
+footer{color:var(--ink3);font-size:12px;padding:20px 0 40px;border-top:1px solid var(--line)}
+footer a{color:inherit}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+@media (max-width:640px){
+  .ch{flex-wrap:wrap}
+  .tags{flex-basis:100%;order:3;padding-left:26px}
+  .event input{width:100%}
+  .event{flex:1}
+  .shown{margin-left:0;flex-basis:100%}
+  .bar{position:static}
+}
+.tag.hi{background:var(--a-bg);color:var(--a)} .tag.med{background:var(--b-bg);color:var(--b)} .tag.uns{background:var(--x-bg);color:var(--x)}
+.tag.warn{background:var(--warn-bg);color:var(--warn)} .tag.spk{background:var(--spot-bg);color:var(--spot)}
+.person{padding:10px 0;border-top:1px solid var(--line2)}
+.person:first-child{border-top:0;padding-top:2px}
+.phead{display:flex;gap:8px;flex-wrap:wrap;align-items:baseline}
+.phead .pn{font-size:14.5px}
+.hl{margin:6px 0 4px;padding-left:18px}
+.hl li{margin:2px 0}
+.focus{margin:6px 0 4px}
+.nothing{margin:6px 0 4px;color:var(--ink3);font-style:italic}
+.meta{font-size:12.5px;color:var(--ink2);margin-top:3px}
+.meta b{color:var(--ink);font-weight:550}
+.box{border-radius:7px;padding:6px 9px;margin-top:6px;font-size:13px}
+.box.spk{background:var(--spot-bg);color:var(--spot)}
+.box.mis{background:var(--warn-bg);color:var(--warn)}
+.src{font-size:12px;margin-top:4px;color:var(--ink3);word-break:break-all}
+.src a{color:var(--ink2)}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <div>
+      <h1>Research briefing</h1>
+      <div class="sub" id="dsname">Load a research.csv to begin.</div>
+    </div>
+    <div class="actions">
+      <button class="btn" id="bOpen" type="button">Open CSV</button>
+      <button class="btn" id="bPaste" type="button">Paste CSV</button>
+      <button class="btn" id="bDemo" type="button" hidden>Load demo</button>
+      <button class="btn ghost" id="bTheme" type="button" aria-label="Toggle dark mode">◐</button>
+      <input type="file" id="file" accept=".csv,text/csv" hidden>
+    </div>
+  </header>
+</div>
+
+<div id="app" hidden>
+  <div class="wrap"><div class="stats" id="stats"></div></div>
+  <div class="bar"><div class="wrap">
+    <div class="row" role="group" aria-label="Filters">
+      <span class="chip tA" data-conf="high" role="button" tabindex="0" aria-pressed="true">High</span>
+      <span class="chip tB" data-conf="medium" role="button" tabindex="0" aria-pressed="true">Medium</span>
+      <span class="chip tX" data-conf="unsure" role="button" tabindex="0" aria-pressed="true">Unsure</span>
+      <span class="sep"></span>
+      <span class="chip" data-flag="spk" role="button" tabindex="0" aria-pressed="false">Speakers</span>
+      <span class="chip" data-flag="mis" role="button" tabindex="0" aria-pressed="false">Title mismatch</span>
+      <span class="chip" data-flag="warn" role="button" tabindex="0" aria-pressed="false">Scope warning</span>
+      <span class="chip" data-flag="mail" role="button" tabindex="0" aria-pressed="false">Has email</span>
+    </div>
+    <div class="row">
+      <select id="fTier" aria-label="Tier"><option value="">All tiers</option></select>
+      <select id="fSeg" aria-label="Segment"><option value="">All segments</option></select>
+      <select id="fSen" aria-label="Seniority"><option value="">All seniorities</option></select>
+      <select id="fFun" aria-label="Function"><option value="">All functions</option></select>
+      <input class="search" id="q" type="search" placeholder="Search names, titles, companies, highlights…" aria-label="Search">
+    </div>
+    <div class="row">
+      <button class="btn" id="bExpand" type="button">Collapse all</button>
+      <button class="btn" id="bExp" type="button">Export visible → CSV</button>
+      <span class="shown" id="shown" aria-live="polite"></span>
+    </div>
+  </div></div>
+  <main class="wrap" id="list"></main>
+</div>
+
+<div class="wrap" id="emptyWrap">
+  <div class="empty">
+    <h2>Load a research file</h2>
+    <p>Open or drag in a <code>research.csv</code> from Stage 2 of the target-list-research skill, or paste the CSV text your AI chat gave you. This briefing is for reading — it researches; you write the outreach.</p>
+    <div class="actions" style="justify-content:center">
+      <button class="btn primary" id="bOpen2" type="button">Open CSV</button>
+      <button class="btn" id="bPaste2" type="button">Paste CSV</button>
+      <button class="btn" id="bDemo2" type="button" hidden>Try the demo</button>
+    </div>
+  </div>
+</div>
+
+<div class="wrap"><footer>Research briefing · part of the open-source <a href="https://github.com/potentiate-bio/thoughtful-outreach">target-list-research</a> skill (MIT). “Unsure” means no confident public information was found — not that the person isn't worth meeting.</footer></div>
+
+<dialog id="dlg">
+  <div class="dh"><h3 id="dTitle">Export</h3><button class="btn ghost" id="dClose" type="button" aria-label="Close">✕</button></div>
+  <div class="db"><p id="dMsg"></p><textarea id="csv" spellcheck="false" aria-label="CSV text"></textarea><div class="df" id="dFoot"></div></div>
+</dialog>
+<div class="toast" id="toast" role="status"></div>
+
+<script src="data/demo-data.js"></script>
+<script>window.DEMO_AUTOLOAD = true;</script>
+<script>
+(function(){
+"use strict";
+const $ = s => document.querySelector(s);
+const SEN_ORDER = ["Exec / VP+","Director","Senior IC","Manager / IC","Junior / IC","Consultant","Academic","Other / unclear"];
+const CONF_ORDER = ["high","medium","unsure"];
+const TIER_ORDER = ["A","B","C","X"];
+const store = { get(k){ try{ return JSON.parse(localStorage.getItem(k)); }catch(e){ return null; } }, set(k,v){ try{ localStorage.setItem(k, JSON.stringify(v)); }catch(e){} } };
+function parseCSV(text){
+  text=String(text).replace(/^﻿/,""); const rows=[]; let row=[], f="", q=false;
+  for(let i=0;i<text.length;i++){ const ch=text[i];
+    if(q){ if(ch==='"'){ if(text[i+1]==='"'){ f+='"'; i++; } else q=false; } else f+=ch; }
+    else if(ch==='"') q=true; else if(ch===','){ row.push(f); f=""; }
+    else if(ch==='\n'||ch==='\r'){ if(ch==='\r'&&text[i+1]==='\n') i++; row.push(f); rows.push(row); row=[]; f=""; }
+    else f+=ch; }
+  if(f!==""||row.length){ row.push(f); rows.push(row); }
+  const clean=rows.filter(r=>r.some(c=>c.trim()!=="")); if(!clean.length) return {header:[],data:[]};
+  const header=clean[0].map(h=>h.trim());
+  return {header, data:clean.slice(1).map(r=>{ const o={}; header.forEach((h,j)=>o[h]=(r[j]||"").trim()); return o; })};
+}
+const q_ = s => { s=s==null?"":String(s); return /[",\r\n]/.test(s)?'"'+s.replace(/"/g,'""')+'"':s; };
+const toCSV=(cols,rows)=>[cols.map(q_).join(",")].concat(rows.map(r=>cols.map(c=>q_(r[c])).join(","))).join("\r\n");
+const esc = s => String(s==null?"":s).replace(/[&<>"']/g, c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+
+let header=[], ROWS=[], COS=[];
+const closed=new Set();
+const F={conf:new Set(CONF_ORDER), spk:false, mis:false, warn:false, mail:false, tier:"", seg:"", sen:"", fun:"", q:""};
+
+function load(text, name){
+  const {header:h, data}=parseCSV(text);
+  const miss=["Name","Company","Confidence"].filter(c=>!h.includes(c));
+  if(miss.length){ toast("Missing column(s): "+miss.join(", ")+" — is this a research.csv?"); return false; }
+  header=h; ROWS=data;
+  ROWS.forEach(r=>{ r.Confidence=(r.Confidence||"unsure").toLowerCase(); if(!CONF_ORDER.includes(r.Confidence)) r.Confidence="unsure"; });
+  const m=new Map(); ROWS.forEach(r=>{ if(!m.has(r.Company)) m.set(r.Company,{name:r.Company, tier:r.Tier||"", segment:r.Segment||"", people:[]}); m.get(r.Company).people.push(r); });
+  COS=[...m.values()];
+  COS.forEach(c=>c.people.sort((a,b)=>(SEN_ORDER.indexOf(a.Seniority)+1||99)-(SEN_ORDER.indexOf(b.Seniority)+1||99) || CONF_ORDER.indexOf(a.Confidence)-CONF_ORDER.indexOf(b.Confidence) || a.Name.localeCompare(b.Name)));
+  COS.sort((a,b)=>(TIER_ORDER.indexOf(a.tier)+1||9)-(TIER_ORDER.indexOf(b.tier)+1||9) || b.people.length-a.people.length || a.name.localeCompare(b.name));
+  fill("#fTier","All tiers",ROWS.map(r=>r.Tier),TIER_ORDER); fill("#fSeg","All segments",ROWS.map(r=>r.Segment));
+  fill("#fSen","All seniorities",ROWS.map(r=>r.Seniority),SEN_ORDER); fill("#fFun","All functions",ROWS.map(r=>r.Function));
+  $("#app").hidden=false; $("#emptyWrap").hidden=true;
+  $("#dsname").textContent=(name||"research.csv")+" · "+ROWS.length+" people · "+COS.length+" companies";
+  render(); return true;
+}
+function fill(id,label,vals,order){ const s=$(id), u=[...new Set(vals.filter(Boolean))];
+  u.sort((a,b)=>order?((order.indexOf(a)+1||99)-(order.indexOf(b)+1||99)):a.localeCompare(b));
+  s.innerHTML='<option value="">'+label+'</option>'+u.map(v=>'<option>'+esc(v)+'</option>').join(""); }
+
+function matchP(c,p){
+  if(!F.conf.has(p.Confidence)) return false;
+  if(F.spk && !p.Speaker) return false;
+  if(F.mis && !p.TitleMismatch) return false;
+  if(F.warn && !p.ScopeWarning) return false;
+  if(F.mail && !p.Email) return false;
+  if(F.tier && p.Tier!==F.tier) return false;
+  if(F.seg && p.Segment!==F.seg) return false;
+  if(F.sen && p.Seniority!==F.sen) return false;
+  if(F.fun && p.Function!==F.fun) return false;
+  if(F.q && ![p.Name,p.Title,p.Company,p.Focus,p.Highlight1,p.Highlight2,p.Tenure,p.Prior,p.Speaker,p.ScopeWarning].join(" ").toLowerCase().includes(F.q)) return false;
+  return true;
+}
+function visible(){ const out=[]; for(const c of COS){ const ps=c.people.filter(p=>matchP(c,p)); if(ps.length) out.push({c,ps}); } return out; }
+const tag=(cls,t,title)=>'<span class="tag '+cls+'"'+(title?' title="'+esc(title)+'"':'')+'>'+esc(t)+'</span>';
+const CONF_CLS={high:"hi",medium:"med",unsure:"uns"};
+const BASIS={crm:"from your CRM",pattern:"pattern guess — unverified",none:""};
+
+function render(){
+  const vis=visible(), n=vis.reduce((a,v)=>a+v.ps.length,0);
+  $("#shown").textContent=vis.length+" companies · "+n+" people shown";
+  const cnt=k=>ROWS.filter(r=>r.Confidence===k).length;
+  $("#stats").innerHTML=[["high","High confidence"],["medium","Medium"],["unsure","Unsure"]].map(([k,l])=>'<div class="stat"><b>'+cnt(k)+'</b><span>'+l+'</span></div>').join("")
+    +'<div class="stat"><b>'+ROWS.filter(r=>r.Speaker).length+'</b><span>speakers</span></div><div class="stat"><b>'+ROWS.filter(r=>r.Email).length+'</b><span>with email</span></div>';
+  if(!vis.length){ $("#list").innerHTML='<div class="none">Nothing matches these filters.</div>'; return; }
+  $("#list").innerHTML=vis.map(({c,ps})=>{
+    const isOpen=!closed.has(c.name);
+    let tags=(c.tier?tag("tier"+c.tier,c.tier):"")+(c.segment?tag("seg",c.segment):"");
+    return '<div class="card'+(isOpen?' open':'')+'" data-co="'+esc(c.name)+'"><div class="ch" data-act="toggle" aria-expanded="'+isOpen+'"><span class="cname">'+esc(c.name)+'</span><span class="tags">'+tags+'</span><span class="count">'+ps.length+' people</span><span class="caret" aria-hidden="true">›</span></div>'
+      +'<div class="cb">'+ps.map(person).join("")+'</div></div>';
+  }).join("");
+}
+function person(p){
+  const hl=[p.Highlight1,p.Highlight2].filter(Boolean);
+  let body;
+  if(hl.length) body='<ul class="hl">'+hl.map(h=>'<li>'+esc(h)+'</li>').join("")+'</ul>'+(p.Focus?'<div class="meta"><b>Focus:</b> '+esc(p.Focus)+'</div>':'');
+  else if(p.Focus) body='<div class="focus">'+esc(p.Focus)+'</div>';
+  else body='<div class="nothing">No confident public information found — your call whether to dig further.</div>';
+  const tp=[p.Tenure&&'<b>Tenure:</b> '+esc(p.Tenure), p.Prior&&'<b>Prior:</b> '+esc(p.Prior)].filter(Boolean).join(" · ");
+  const em=p.Email?'<b>Email:</b> '+esc(p.Email)+(BASIS[p.EmailBasis]?' <span style="color:var(--ink3)">('+esc(BASIS[p.EmailBasis])+')</span>':''):'<b>Email:</b> <span style="color:var(--ink3)">none known</span>';
+  const src=(p.Sources||"").split(/\s*\|\s*/).filter(s=>/^https?:\/\//.test(s));
+  return '<div class="person"><div class="phead"><span class="pn">'+esc(p.Name)+'</span>'+tag(CONF_CLS[p.Confidence],p.Confidence)
+    +(p.ScopeWarning?tag("warn","Scope warning",p.ScopeWarning):"")+(p.Speaker?tag("spk","Speaker"):"")+'</div>'
+    +'<div class="pt">'+esc(p.Title)+(p.Seniority?' · '+esc(p.Seniority):'')+(p.Function?' · '+esc(p.Function):'')+'</div>'
+    +body+(tp?'<div class="meta">'+tp+'</div>':'')+'<div class="meta">'+em+'</div>'
+    +(p.ScopeWarning?'<div class="box mis">'+esc(p.ScopeWarning)+'</div>':'')
+    +(p.Speaker?'<div class="box spk"><b>On the agenda:</b> '+esc(p.Speaker)+'</div>':'')
+    +(p.TitleMismatch?'<div class="box mis"><b>Title mismatch:</b> '+esc(p.TitleMismatch)+'</div>':'')
+    +(src.length?'<div class="src">Sources: '+src.map(u=>'<a href="'+esc(u)+'" target="_blank" rel="noopener noreferrer">'+esc(u.replace(/^https?:\/\/(www\.)?/,"").slice(0,60))+'</a>').join(" · ")+'</div>':'')
+    +'</div>';
+}
+
+$("#list").addEventListener("click",e=>{ const h=e.target.closest('[data-act="toggle"]'); if(!h) return; const co=h.parentElement.dataset.co; closed.has(co)?closed.delete(co):closed.add(co); render(); });
+function chipToggle(ch){ const on=ch.getAttribute("aria-pressed")!=="true"; ch.setAttribute("aria-pressed",on);
+  if(ch.dataset.conf){ on?F.conf.add(ch.dataset.conf):F.conf.delete(ch.dataset.conf); } else F[ch.dataset.flag]=on; render(); }
+document.querySelectorAll(".chip").forEach(ch=>{ ch.addEventListener("click",()=>chipToggle(ch)); ch.addEventListener("keydown",e=>{ if(e.key===" "||e.key==="Enter"){ e.preventDefault(); chipToggle(ch);} }); });
+[["#fTier","tier"],["#fSeg","seg"],["#fSen","sen"],["#fFun","fun"]].forEach(([id,k])=>$(id).onchange=e=>{F[k]=e.target.value; render();});
+let qt; $("#q").oninput=e=>{ clearTimeout(qt); qt=setTimeout(()=>{F.q=e.target.value.trim().toLowerCase(); render();},120); };
+$("#bExpand").onclick=()=>{ const allOpen=COS.every(c=>!closed.has(c.name)); COS.forEach(c=>allOpen?closed.add(c.name):closed.delete(c.name)); $("#bExpand").textContent=allOpen?"Expand all":"Collapse all"; render(); };
+
+function stamp(){ const d=new Date(); return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0"); }
+$("#bExp").onclick=()=>{
+  const rows=visible().flatMap(v=>v.ps);
+  const cols=["Name","Title","Company","Tier","Confidence","ScopeWarning","Focus","Highlight1","Highlight2","Tenure","Prior","Email","EmailBasis","Speaker","TitleMismatch","Sources"].filter(c=>header.includes(c)||c==="Tier");
+  const text=toCSV(cols,rows), fn="briefing-"+stamp()+".csv";
+  $("#dTitle").textContent="Visible people — "+rows.length; $("#dMsg").textContent="For your own notes while you write outreach. If the download is blocked, copy the text below.";
+  $("#csv").value=text; $("#csv").readOnly=true;
+  $("#dFoot").innerHTML='<button class="btn" id="dCopy" type="button">Copy to clipboard</button><button class="btn primary" id="dDl" type="button">Download '+fn+'</button>';
+  $("#dCopy").onclick=()=>copy(text); $("#dDl").onclick=()=>download(text,fn);
+  openDlg(); download(text,fn);
+};
+function download(text,fn){ try{ const b=new Blob(["﻿"+text],{type:"text/csv;charset=utf-8"}), u=URL.createObjectURL(b), a=document.createElement("a"); a.href=u; a.download=fn; document.body.appendChild(a); a.click(); setTimeout(()=>{URL.revokeObjectURL(u); a.remove();},400); }catch(e){} }
+function copy(text){ const done=()=>toast("Copied"); if(navigator.clipboard&&navigator.clipboard.writeText) navigator.clipboard.writeText(text).then(done,()=>{ $("#csv").select(); document.execCommand("copy"); done(); }); else { $("#csv").select(); document.execCommand("copy"); done(); } }
+function openDlg(){ const d=$("#dlg"); d.showModal?d.showModal():d.setAttribute("open",""); }
+function closeDlg(){ const d=$("#dlg"); d.close?d.close():d.removeAttribute("open"); }
+$("#dClose").onclick=closeDlg;
+function pasteDlg(){
+  $("#dTitle").textContent="Paste CSV"; $("#dMsg").textContent="Paste the research CSV (header row included). Repeated header rows from chunked output are ignored.";
+  $("#csv").value=""; $("#csv").readOnly=false; $("#dFoot").innerHTML='<button class="btn primary" id="dLoad" type="button">Load</button>';
+  $("#dLoad").onclick=()=>{ let t=$("#csv").value.trim(); if(!t) return; const L=t.split(/\r?\n/).filter(l=>!/^```/.test(l.trim())), h=L[0]; t=[h,...L.slice(1).filter(l=>l.trim()!==h.trim())].join("\n"); if(load(t,"pasted research")) closeDlg(); };
+  openDlg(); setTimeout(()=>$("#csv").focus(),50);
+}
+function readFile(f){ if(!f) return; const r=new FileReader(); r.onload=()=>load(r.result,f.name); r.readAsText(f); }
+["#bOpen","#bOpen2"].forEach(id=>$(id).onclick=()=>$("#file").click());
+["#bPaste","#bPaste2"].forEach(id=>$(id).onclick=pasteDlg);
+$("#file").onchange=e=>{ readFile(e.target.files[0]); e.target.value=""; };
+document.addEventListener("dragover",e=>{ e.preventDefault(); document.body.classList.add("drop"); });
+document.addEventListener("dragleave",e=>{ if(!e.relatedTarget) document.body.classList.remove("drop"); });
+document.addEventListener("drop",e=>{ e.preventDefault(); document.body.classList.remove("drop"); readFile(e.dataTransfer.files[0]); });
+function loadDemo(){ if(window.DEMO_RESEARCH_CSV) load(window.DEMO_RESEARCH_CSV,"Demo — Northwind Bioanalysis at the Atlantic Regulated Bioanalysis Workshop (fictional)"); }
+if(window.DEMO_RESEARCH_CSV){ $("#bDemo").hidden=false; $("#bDemo2").hidden=false; }
+["#bDemo","#bDemo2"].forEach(id=>$(id).onclick=loadDemo);
+function applyTheme(t){ t?document.documentElement.setAttribute("data-theme",t):document.documentElement.removeAttribute("data-theme"); }
+applyTheme(store.get("tlr-theme"));
+$("#bTheme").onclick=()=>{ const cur=document.documentElement.getAttribute("data-theme")||(matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light"); const nx=cur==="dark"?"light":"dark"; applyTheme(nx); store.set("tlr-theme",nx); };
+let tt; function toast(m){ const t=$("#toast"); t.textContent=m; t.classList.add("on"); clearTimeout(tt); tt=setTimeout(()=>t.classList.remove("on"),2600); }
+const qs=new URLSearchParams(location.search);
+if(qs.get("csv")) fetch(qs.get("csv")).then(r=>r.text()).then(t=>load(t,qs.get("csv").split("/").pop())).catch(()=>toast("Couldn't fetch that CSV"));
+else if(window.DEMO_AUTOLOAD) loadDemo();
+window.__tlr={visible};
+})();
+</script>
+</body>
+</html>

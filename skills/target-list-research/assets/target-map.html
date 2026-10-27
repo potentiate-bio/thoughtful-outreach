@@ -1,0 +1,554 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Target Map</title>
+<style>
+:root{
+  --bg:#f6f6f4; --panel:#fff; --panel2:#fbfbfa; --ink:#1a1a18; --ink2:#5c5c56; --ink3:#8a8a82;
+  --line:#e3e3de; --line2:#efefea; --a:#0f7a5a; --a-bg:#e4f3ed; --b:#9a6a10; --b-bg:#f8efdc;
+  --c:#2a5fa8; --c-bg:#e5eefa; --x:#6f6f68; --x-bg:#ececE7; --spot:#8b2f7a; --spot-bg:#f8e8f5;
+  --deal:#a83232; --deal-bg:#fbe8e6; --warn:#8a5a00; --warn-bg:#fdf3dc; --ov:#5b3fc4; --ov-bg:#eeeafc;
+  --sel:#1a1a18; --focus:#2a5fa8; color-scheme:light;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#131313; --panel:#1b1b1a; --panel2:#202020; --ink:#ececE8; --ink2:#a3a39c; --ink3:#77776f;
+  --line:#2e2e2c; --line2:#262625; --a:#4bc79b; --a-bg:#12332a; --b:#d9a441; --b-bg:#33280f;
+  --c:#7aa9e8; --c-bg:#152538; --x:#9a9a92; --x-bg:#262625; --spot:#e07ccb; --spot-bg:#33162c;
+  --deal:#f08a80; --deal-bg:#3a1a17; --warn:#e8b85c; --warn-bg:#352a12; --ov:#a996ff; --ov-bg:#241d3f;
+  --sel:#ececE8; --focus:#7aa9e8; color-scheme:dark;
+}}
+:root[data-theme="dark"]{
+  --bg:#131313; --panel:#1b1b1a; --panel2:#202020; --ink:#ececE8; --ink2:#a3a39c; --ink3:#77776f;
+  --line:#2e2e2c; --line2:#262625; --a:#4bc79b; --a-bg:#12332a; --b:#d9a441; --b-bg:#33280f;
+  --c:#7aa9e8; --c-bg:#152538; --x:#9a9a92; --x-bg:#262625; --spot:#e07ccb; --spot-bg:#33162c;
+  --deal:#f08a80; --deal-bg:#3a1a17; --warn:#e8b85c; --warn-bg:#352a12; --ov:#a996ff; --ov-bg:#241d3f;
+  --sel:#ececE8; --focus:#7aa9e8; color-scheme:dark;
+}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background:var(--bg);color:var(--ink);font:14px/1.45 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;-webkit-font-smoothing:antialiased}
+button,input,select,textarea{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--focus);outline-offset:2px}
+.wrap{max-width:1180px;margin:0 auto;padding:0 16px}
+header.top{padding:20px 0 12px;display:flex;gap:12px;align-items:flex-start;justify-content:space-between;flex-wrap:wrap}
+h1{font-size:20px;margin:0;letter-spacing:-.01em}
+.sub{color:var(--ink2);font-size:13px;margin-top:2px}
+.actions{display:flex;gap:6px;flex-wrap:wrap;align-items:center}
+.btn{border:1px solid var(--line);background:var(--panel);padding:6px 11px;border-radius:7px;cursor:pointer;font-size:13px;white-space:nowrap}
+.btn:hover{border-color:var(--ink3)}
+.btn.primary{background:var(--sel);color:var(--bg);border-color:var(--sel)}
+.btn.ghost{background:transparent}
+.btn:disabled{opacity:.45;cursor:default}
+.event{display:flex;gap:6px;align-items:center;font-size:13px;color:var(--ink2)}
+.event input{border:1px solid var(--line);background:var(--panel);border-radius:7px;padding:5px 8px;width:200px}
+.stats{display:flex;gap:8px;flex-wrap:wrap;margin:4px 0 12px}
+.stat{background:var(--panel);border:1px solid var(--line);border-radius:9px;padding:8px 12px;min-width:110px}
+.stat b{display:block;font-size:18px;font-variant-numeric:tabular-nums}
+.stat span{font-size:12px;color:var(--ink2)}
+.bar{position:sticky;top:0;z-index:5;background:var(--bg);border-bottom:1px solid var(--line);padding:10px 0}
+.bar .row{display:flex;gap:6px;flex-wrap:wrap;align-items:center}
+.bar .row+.row{margin-top:8px}
+.chip{border:1px solid var(--line);background:var(--panel);border-radius:999px;padding:4px 10px;font-size:12.5px;cursor:pointer;user-select:none}
+.chip[aria-pressed="true"]{background:var(--sel);color:var(--bg);border-color:var(--sel)}
+.chip.tA[aria-pressed="true"]{background:var(--a);border-color:var(--a);color:#fff}
+.chip.tB[aria-pressed="true"]{background:var(--b);border-color:var(--b);color:#fff}
+.chip.tC[aria-pressed="true"]{background:var(--c);border-color:var(--c);color:#fff}
+.chip.tX[aria-pressed="true"]{background:var(--x);border-color:var(--x);color:#fff}
+:root[data-theme="dark"] .chip[class*=" t"][aria-pressed="true"]{color:#111}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .chip[class*=" t"][aria-pressed="true"]{color:#111}}
+select,.search{border:1px solid var(--line);background:var(--panel);border-radius:7px;padding:5px 8px;font-size:13px;max-width:100%}
+.search{flex:1;min-width:180px}
+.sep{width:1px;height:20px;background:var(--line);margin:0 2px}
+.shown{font-size:12.5px;color:var(--ink2);margin-left:auto;white-space:nowrap}
+main{padding:14px 0 60px}
+.tierhead{display:flex;align-items:baseline;gap:8px;margin:18px 0 8px}
+.tierhead h2{font-size:15px;margin:0}
+.tierhead span{color:var(--ink2);font-size:12.5px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:10px;margin-bottom:8px;overflow:hidden}
+.card.ovr{border-color:var(--ov)}
+.ch{display:flex;gap:10px;align-items:center;padding:10px 12px;cursor:pointer}
+.ch:hover{background:var(--panel2)}
+.ch input{width:16px;height:16px;flex:none;cursor:pointer}
+.cname{font-weight:600;min-width:0;overflow:hidden;text-overflow:ellipsis}
+.tags{display:flex;gap:5px;flex-wrap:wrap;align-items:center;flex:1;min-width:0}
+.tag{font-size:11.5px;border-radius:5px;padding:1px 6px;white-space:nowrap;border:1px solid transparent}
+.tag.tierA{background:var(--a-bg);color:var(--a)} .tag.tierB{background:var(--b-bg);color:var(--b)}
+.tag.tierC{background:var(--c-bg);color:var(--c)} .tag.tierX{background:var(--x-bg);color:var(--x)}
+.tag.seg{background:var(--panel2);color:var(--ink2);border-color:var(--line2)}
+.tag.spot{background:var(--spot-bg);color:var(--spot)} .tag.crm{background:var(--c-bg);color:var(--c)}
+.tag.deal{background:var(--deal-bg);color:var(--deal)} .tag.bord{background:var(--warn-bg);color:var(--warn)}
+.tag.ov{background:var(--ov-bg);color:var(--ov)}
+.tag.sig{background:var(--panel);color:var(--ink);border-color:var(--line)}
+.tag.sig.unc{border-style:dashed;color:var(--ink2)}
+.sigs{display:flex;gap:5px;flex-wrap:wrap;margin:2px 0 8px}
+.count{color:var(--ink3);font-size:12px;white-space:nowrap}
+.caret{color:var(--ink3);transition:transform .15s;flex:none}
+.card.open .caret{transform:rotate(90deg)}
+.cb{display:none;border-top:1px solid var(--line2);padding:10px 12px 12px}
+.card.open .cb{display:block}
+.why{color:var(--ink2);margin:0 0 6px}
+.why b{color:var(--ink)}
+.bnote{background:var(--warn-bg);color:var(--warn);border-radius:7px;padding:6px 9px;margin:6px 0;font-size:13px}
+.ovbox{display:flex;gap:6px;flex-wrap:wrap;align-items:center;margin:8px 0 10px;padding:8px;border:1px dashed var(--line);border-radius:8px}
+.ovbox label{font-size:12.5px;color:var(--ink2)}
+.ovbox input[type=text]{flex:1;min-width:200px;border:1px solid var(--line);background:var(--panel);border-radius:7px;padding:5px 8px;font-size:13px}
+.people{list-style:none;margin:0;padding:0}
+.people li{display:flex;gap:10px;align-items:flex-start;padding:6px 0;border-top:1px solid var(--line2)}
+.people li:first-child{border-top:0}
+.people input{margin-top:3px;width:15px;height:15px;flex:none;cursor:pointer}
+.pn{font-weight:550}
+.pt{color:var(--ink2);font-size:13px}
+.pm{display:flex;gap:5px;flex-wrap:wrap;margin-top:3px}
+.pm .tag{background:var(--panel2);color:var(--ink2);border-color:var(--line2)}
+.pm .tag.rec{background:var(--a-bg);color:var(--a);border-color:transparent}
+.pnote{font-size:12.5px;color:var(--warn);margin-top:2px}
+.empty{background:var(--panel);border:1px dashed var(--line);border-radius:12px;padding:28px;text-align:center;margin-top:24px}
+.empty h2{margin:0 0 6px;font-size:17px}
+.empty p{color:var(--ink2);margin:0 auto 14px;max-width:560px}
+.drop{outline:2px dashed var(--focus);outline-offset:-8px}
+.none{color:var(--ink2);padding:30px 0;text-align:center}
+dialog{border:1px solid var(--line);border-radius:12px;background:var(--panel);color:var(--ink);padding:0;width:min(760px,calc(100vw - 32px))}
+dialog::backdrop{background:rgba(0,0,0,.35)}
+.dh{padding:14px 16px 0;display:flex;justify-content:space-between;align-items:center;gap:10px}
+.dh h3{margin:0;font-size:16px}
+.db{padding:10px 16px 16px}
+.db p{color:var(--ink2);margin:0 0 8px;font-size:13px}
+textarea{width:100%;height:280px;border:1px solid var(--line);border-radius:8px;background:var(--panel2);padding:8px;font:12px/1.4 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;resize:vertical}
+.df{display:flex;gap:6px;justify-content:flex-end;margin-top:10px;flex-wrap:wrap}
+.toast{position:fixed;bottom:16px;left:50%;transform:translateX(-50%);background:var(--sel);color:var(--bg);padding:8px 14px;border-radius:8px;font-size:13px;opacity:0;transition:opacity .2s;pointer-events:none;z-index:50}
+.toast.on{opacity:1}
+footer{color:var(--ink3);font-size:12px;padding:20px 0 40px;border-top:1px solid var(--line)}
+footer a{color:inherit}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+@media (max-width:640px){
+  .ch{flex-wrap:wrap}
+  .tags{flex-basis:100%;order:3;padding-left:26px}
+  .event input{width:100%}
+  .event{flex:1}
+  .shown{margin-left:0;flex-basis:100%}
+  .bar{position:static}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <div>
+      <h1>Target map</h1>
+      <div class="sub" id="dsname">Load a scored list to begin.</div>
+    </div>
+    <div class="actions">
+      <label class="event" for="evt">Event <input id="evt" type="text" placeholder="optional — e.g. Spring Summit 2027"></label>
+      <button class="btn" id="bOpen" type="button">Open CSV</button>
+      <button class="btn" id="bPaste" type="button">Paste CSV</button>
+      <button class="btn" id="bDemo" type="button" hidden>Load demo</button>
+      <button class="btn ghost" id="bTheme" type="button" aria-label="Toggle dark mode">◐</button>
+      <input type="file" id="file" accept=".csv,text/csv" hidden>
+    </div>
+  </header>
+</div>
+
+<div id="app" hidden>
+  <div class="wrap"><div class="stats" id="stats"></div></div>
+  <div class="bar"><div class="wrap">
+    <div class="row" role="group" aria-label="Filters">
+      <span class="chip tA" data-tier="A" role="button" tabindex="0" aria-pressed="true">A</span>
+      <span class="chip tB" data-tier="B" role="button" tabindex="0" aria-pressed="true">B</span>
+      <span class="chip tC" data-tier="C" role="button" tabindex="0" aria-pressed="false">C</span>
+      <span class="chip tX" data-tier="X" role="button" tabindex="0" aria-pressed="false">X</span>
+      <span class="sep"></span>
+      <span class="chip" data-flag="spot" role="button" tabindex="0" aria-pressed="false">Spotlight</span>
+      <span class="chip" data-flag="crm" role="button" tabindex="0" aria-pressed="false">In CRM</span>
+      <span class="chip" data-flag="deal" role="button" tabindex="0" aria-pressed="false">Deal history</span>
+      <span class="chip" data-flag="bord" role="button" tabindex="0" aria-pressed="false">Borderline</span>
+      <span class="chip" data-flag="ovr" role="button" tabindex="0" aria-pressed="false">Overridden</span>
+      <span class="chip" data-flag="sel" role="button" tabindex="0" aria-pressed="false">Selected only</span>
+    </div>
+    <div class="row">
+      <select id="fSeg" aria-label="Segment"><option value="">All segments</option></select>
+      <select id="fSig" aria-label="Signal"><option value="">All signals</option></select>
+      <select id="fSen" aria-label="Seniority"><option value="">All seniorities</option></select>
+      <select id="fFun" aria-label="Function"><option value="">All functions</option></select>
+      <input class="search" id="q" type="search" placeholder="Search name, title, company, signal, rationale…" aria-label="Search">
+    </div>
+    <div class="row">
+      <button class="btn primary" id="bRec" type="button">Preselect shortlist</button>
+      <button class="btn" id="bClear" type="button">Clear selection</button>
+      <button class="btn" id="bExpand" type="button">Expand all</button>
+      <span class="sep"></span>
+      <button class="btn" id="bExpSel" type="button">Export shortlist</button>
+      <button class="btn" id="bExpOv" type="button">Export overrides</button>
+      <span class="shown" id="shown" aria-live="polite"></span>
+    </div>
+  </div></div>
+  <main class="wrap" id="list"></main>
+</div>
+
+<div class="wrap" id="emptyWrap">
+  <div class="empty" id="empty">
+    <h2>Load a scored list</h2>
+    <p>Open or drag in a <code>scored.csv</code> produced by the target-list-research skill, or paste the CSV text your AI chat gave you. Everything stays in this browser — nothing is uploaded.</p>
+    <div class="actions" style="justify-content:center">
+      <button class="btn primary" id="bOpen2" type="button">Open CSV</button>
+      <button class="btn" id="bPaste2" type="button">Paste CSV</button>
+      <button class="btn" id="bDemo2" type="button" hidden>Try the demo</button>
+    </div>
+  </div>
+</div>
+
+<div class="wrap"><footer>Target map · part of the open-source <a href="https://github.com/potentiate-bio/thoughtful-outreach">target-list-research</a> skill (MIT). Your selections and overrides are saved in this browser only.</footer></div>
+
+<dialog id="dlg">
+  <div class="dh"><h3 id="dTitle">Export</h3><button class="btn ghost" id="dClose" type="button" aria-label="Close">✕</button></div>
+  <div class="db">
+    <p id="dMsg"></p>
+    <textarea id="csv" spellcheck="false" aria-label="CSV text"></textarea>
+    <div class="df" id="dFoot"></div>
+  </div>
+</dialog>
+<div class="toast" id="toast" role="status"></div>
+
+<script>
+(function(){
+"use strict";
+const $ = s => document.querySelector(s);
+const TIERS = ["A","B","C","X"];
+const DEF_TN = {A:"Direct fit",B:"Plausible",C:"Partner / referral",X:"Out of scope"};
+const SEN_ORDER = ["Exec / VP+","Director","Senior IC","Manager / IC","Junior / IC","Consultant","Academic","Other / unclear"];
+const PROMOTE_SEN = new Set(["Exec / VP+","Director","Senior IC"]);
+const store = {
+  get(k){ try{ return JSON.parse(localStorage.getItem(k)); }catch(e){ return null; } },
+  set(k,v){ try{ localStorage.setItem(k, JSON.stringify(v)); }catch(e){} }
+};
+
+/* ---------- CSV ---------- */
+function parseCSV(text){
+  text = String(text).replace(/^﻿/, "");
+  const rows=[]; let row=[], f="", q=false;
+  for(let i=0;i<text.length;i++){
+    const ch=text[i];
+    if(q){
+      if(ch==='"'){ if(text[i+1]==='"'){ f+='"'; i++; } else q=false; }
+      else f+=ch;
+    } else if(ch==='"') q=true;
+    else if(ch===','){ row.push(f); f=""; }
+    else if(ch==='\n'||ch==='\r'){ if(ch==='\r'&&text[i+1]==='\n') i++; row.push(f); rows.push(row); row=[]; f=""; }
+    else f+=ch;
+  }
+  if(f!==""||row.length){ row.push(f); rows.push(row); }
+  const clean = rows.filter(r=>r.some(c=>c.trim()!==""));
+  if(!clean.length) return {header:[],data:[]};
+  const header = clean[0].map(h=>h.trim());
+  const data = clean.slice(1).map(r=>{ const o={}; header.forEach((h,j)=>o[h]=(r[j]||"").trim()); return o; });
+  return {header,data};
+}
+const q_ = s => { s = s==null ? "" : String(s); return /[",\r\n]/.test(s) ? '"'+s.replace(/"/g,'""')+'"' : s; };
+const toCSV = (cols, rows) => [cols.map(q_).join(",")].concat(rows.map(r=>cols.map(c=>q_(r[c])).join(","))).join("\r\n");
+function hash(s){ let h=5381; for(let i=0;i<s.length;i++) h=((h<<5)+h+s.charCodeAt(i))|0; return (h>>>0).toString(36); }
+const esc = s => String(s==null?"":s).replace(/[&<>"']/g, c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+
+/* ---------- state ---------- */
+let header=[], ROWS=[], COS=[], byId=new Map(), TN={...DEF_TN}, KEY="", NAME="";
+const sel=new Set(), open=new Set();
+let OV={}; // company -> {tier, reason, scope}
+const F = {tiers:new Set(["A","B"]), spot:false, crm:false, deal:false, bord:false, ovr:false, sel:false, seg:"", sig:"", sen:"", fun:"", q:""};
+const sigFamily = t => t.replace(/\?\s*$/,"").split(" · ")[0].trim();
+
+function load(text, name){
+  const {header:h, data} = parseCSV(text);
+  const need = ["Name","Company","Tier"];
+  const miss = need.filter(c=>!h.includes(c));
+  if(miss.length){ toast("Missing column(s): "+miss.join(", ")+" — is this a scored.csv?"); return false; }
+  header=h; ROWS=data; NAME=name||"scored.csv"; KEY="tlr-map:"+hash(text);
+  TN={...DEF_TN}; byId=new Map();
+  const cmap=new Map();
+  ROWS.forEach((r,i)=>{
+    if(!r.PersonId) r.PersonId="r"+(i+1);
+    r.Tier=(r.Tier||"").toUpperCase(); if(!TIERS.includes(r.Tier)) r.Tier="X";
+    if(r.TierName) TN[r.Tier]=r.TierName;
+    byId.set(r.PersonId, r);
+    let c=cmap.get(r.Company);
+    if(!c){ c={name:r.Company, tier:r.Tier, priority:parseInt(r.Priority)||0, segment:r.Segment||"", spot:(r.Spotlight||"").toLowerCase(),
+               why:r.Why||"", signals:(r.Signals||"").split(";").map(x=>x.trim()).filter(Boolean), bord:/^y/i.test(r.Borderline||""), bnote:r.BorderlineNote||"", crm:/^y/i.test(r.CRMAccount||""),
+               deal:r.CRMDeal||"", people:[]}; cmap.set(r.Company,c); }
+    c.people.push(r);
+  });
+  COS=[...cmap.values()];
+  COS.forEach(c=>c.people.sort((a,b)=>SEN_ORDER.indexOf(a.Seniority)-SEN_ORDER.indexOf(b.Seniority)||a.Name.localeCompare(b.Name)));
+  const saved = store.get(KEY) || {};
+  sel.clear(); (saved.sel||[]).forEach(id=>byId.has(id)&&sel.add(id));
+  OV = saved.ov || {};
+  if(saved.event!=null) $("#evt").value=saved.event;
+  open.clear();
+  fillSelect("#fSeg", "All segments", COS.map(c=>c.segment));
+  { const cnt={}; COS.forEach(c=>new Set(c.signals.map(sigFamily)).forEach(t=>cnt[t]=(cnt[t]||0)+1));
+    const ks=Object.keys(cnt).sort((x,y)=>cnt[y]-cnt[x]||x.localeCompare(y));
+    $("#fSig").innerHTML='<option value="">All signals</option>'+ks.map(k=>'<option value="'+esc(k)+'">'+esc(k)+' ('+cnt[k]+')</option>').join(""); }
+  $("#fSig").hidden = !COS.some(c=>c.signals.length);
+  fillSelect("#fSen", "All seniorities", ROWS.map(r=>r.Seniority), SEN_ORDER);
+  fillSelect("#fFun", "All functions", ROWS.map(r=>r.Function));
+  $("#app").hidden=false; $("#emptyWrap").hidden=true;
+  $("#dsname").textContent = NAME+" · "+ROWS.length+" people · "+COS.length+" companies";
+  render();
+  return true;
+}
+function fillSelect(id, label, vals, order){
+  const s=$(id); const u=[...new Set(vals.filter(Boolean))];
+  u.sort((a,b)=> order ? ((order.indexOf(a)+1||99)-(order.indexOf(b)+1||99)) : a.localeCompare(b));
+  s.innerHTML='<option value="">'+label+'</option>'+u.map(v=>'<option>'+esc(v)+'</option>').join("");
+}
+function save(){ store.set(KEY, {sel:[...sel], ov:OV, event:$("#evt").value}); }
+
+const eff = c => (OV[c.name] && OV[c.name].tier) || c.tier;
+const isOv = c => !!(OV[c.name] && OV[c.name].tier && OV[c.name].tier!==c.tier) || !!(OV[c.name] && OV[c.name].reason);
+
+/* ---------- filtering ---------- */
+function matchCo(c){
+  if(!F.tiers.has(eff(c))) return false;
+  if(F.spot && !c.spot) return false;
+  if(F.crm && !c.crm) return false;
+  if(F.deal && !c.deal) return false;
+  if(F.bord && !c.bord) return false;
+  if(F.ovr && !isOv(c)) return false;
+  if(F.seg && c.segment!==F.seg) return false;
+  if(F.sig && !c.signals.some(t=>sigFamily(t)===F.sig)) return false;
+  return true;
+}
+function matchP(c,p){
+  if(F.sel && !sel.has(p.PersonId)) return false;
+  if(F.sen && p.Seniority!==F.sen) return false;
+  if(F.fun && p.Function!==F.fun) return false;
+  if(F.q){
+    const ov = OV[c.name] ? OV[c.name].reason : "";
+    if(![p.Name,p.Title,c.name,p.BadgeCompany,c.why,c.segment,c.bnote,ov,p.Note,c.signals.join(" ")].join(" ").toLowerCase().includes(F.q)) return false;
+  }
+  return true;
+}
+function visible(){
+  const out=[];
+  for(const c of COS){ if(!matchCo(c)) continue; const ps=c.people.filter(p=>matchP(c,p)); if(ps.length) out.push({c,ps}); }
+  out.sort((x,y)=> TIERS.indexOf(eff(x.c))-TIERS.indexOf(eff(y.c)) || (x.c.priority||9)-(y.c.priority||9) || y.c.people.length-x.c.people.length || x.c.name.localeCompare(y.c.name));
+  return out;
+}
+/* The preselect rule. The button label is computed from this same function — never hardcode a count. */
+function recSet(){
+  const s=new Set();
+  for(const c of COS){
+    const t=eff(c);
+    if(t==="X") continue;
+    const promoted = t==="A" && c.tier!=="A";
+    c.people.forEach(p=>{
+      if(/^y/i.test(p.Recommended||"")) s.add(p.PersonId);
+      else if(promoted && PROMOTE_SEN.has(p.Seniority) && !/^(BD|Academic|Other)/.test(p.Function||"")) s.add(p.PersonId);
+    });
+  }
+  return s;
+}
+
+/* ---------- render ---------- */
+function tag(cls, txt, title){ return '<span class="tag '+cls+'"'+(title?' title="'+esc(title)+'"':'')+'>'+esc(txt)+'</span>'; }
+function render(){
+  const vis=visible();
+  const nP=vis.reduce((n,v)=>n+v.ps.length,0);
+  $("#shown").textContent = vis.length+" companies · "+nP+" people shown · "+sel.size+" selected";
+  $("#bRec").textContent = "Preselect shortlist ("+recSet().size+")";
+  renderStats();
+  if(!vis.length){ $("#list").innerHTML='<div class="none">Nothing matches these filters.</div>'; return; }
+  let html="", cur="";
+  for(const {c,ps} of vis){
+    const t=eff(c);
+    if(t!==cur){
+      cur=t;
+      const nc=vis.filter(v=>eff(v.c)===t);
+      html+='<div class="tierhead"><h2>'+t+' · '+esc(TN[t])+'</h2><span>'+nc.length+' companies · '+nc.reduce((n,v)=>n+v.ps.length,0)+' people</span></div>';
+    }
+    const ids=ps.map(p=>p.PersonId), nsel=ids.filter(id=>sel.has(id)).length;
+    const o=OV[c.name]||{};
+    const ovr=isOv(c);
+    let tags = tag("tier"+t, t+(c.priority&&t==="A"?" · P"+c.priority:""));
+    if(ovr && o.tier && o.tier!==c.tier) tags += tag("ov", "AI said "+c.tier+" → you: "+o.tier, o.reason);
+    else if(ovr) tags += tag("ov", "note", o.reason);
+    if(c.segment) tags += tag("seg", c.segment);
+    if(c.spot) tags += tag("spot", "Spotlight · "+c.spot);
+    if(c.crm) tags += tag("crm", "In CRM");
+    if(c.deal) tags += tag("deal", c.deal);
+    if(c.bord) tags += tag("bord", "Borderline", c.bnote);
+    const isOpen=open.has(c.name);
+    html+='<div class="card'+(isOpen?' open':'')+(ovr?' ovr':'')+'" data-co="'+esc(c.name)+'">'
+      +'<div class="ch" data-act="toggle" aria-expanded="'+isOpen+'">'
+      +'<input type="checkbox" data-act="selco" aria-label="Select all shown people at '+esc(c.name)+'"'+(nsel===ids.length?' checked':'')+(nsel&&nsel<ids.length?' data-ind="1"':'')+'>'
+      +'<span class="cname">'+esc(c.name)+'</span><span class="tags">'+tags+'</span>'
+      +'<span class="count">'+ps.length+(ps.length!==c.people.length?' of '+c.people.length:'')+' · '+nsel+' sel</span><span class="caret" aria-hidden="true">›</span></div>';
+    if(isOpen){
+      html+='<div class="cb"><p class="why"><b>Why '+c.tier+':</b> '+esc(c.why||"—")+'</p>';
+      if(c.signals.length) html+='<div class="sigs" aria-label="Signals">'+c.signals.map(t=>/\?\s*$/.test(t)?tag("sig unc",t,"Unconfirmed"):tag("sig",t)).join("")+'</div>';
+      if(c.bord && c.bnote) html+='<div class="bnote"><b>Borderline:</b> '+esc(c.bnote)+'</div>';
+      html+='<div class="ovbox"><label for="ot-'+hash(c.name)+'">Your tier</label><select id="ot-'+hash(c.name)+'" data-act="ovtier">'
+        +['', ...TIERS].map(x=>'<option value="'+x+'"'+((o.tier||"")===x?' selected':'')+'>'+(x?x+' · '+esc(TN[x]):'Keep AI tier ('+c.tier+')')+'</option>').join("")
+        +'</select><input type="text" data-act="ovreason" placeholder="Why? (one line — this is what refines your ICP)" value="'+esc(o.reason||"")+'" aria-label="Override reason">'
+        +'<select data-act="ovscope" aria-label="Scope of this override"><option value=""'+(!o.scope?' selected':'')+'>Scope?</option><option value="event"'+(o.scope==="event"?' selected':'')+'>This event</option><option value="core"'+(o.scope==="core"?' selected':'')+'>Core ICP</option></select>'
+        +'<button class="btn" type="button" data-act="ovsave">Save</button>'+(o.tier||o.reason?'<button class="btn ghost" type="button" data-act="ovclear">Clear</button>':'')+'</div>';
+      html+='<ul class="people">'+ps.map(p=>{
+        const rec=/^y/i.test(p.Recommended||"");
+        return '<li><input type="checkbox" data-act="selp" data-id="'+esc(p.PersonId)+'"'+(sel.has(p.PersonId)?' checked':'')+' aria-label="Select '+esc(p.Name)+'">'
+          +'<div><div class="pn">'+esc(p.Name)+'</div><div class="pt">'+esc(p.Title)+(p.BadgeCompany&&p.BadgeCompany!==c.name?' · badge: '+esc(p.BadgeCompany):'')+'</div>'
+          +'<div class="pm">'+(p.Seniority?tag("",p.Seniority):"")+(p.Function?tag("",p.Function):"")+(rec?tag("rec","Recommended"):"")+'</div>'
+          +(p.Note?'<div class="pnote">'+esc(p.Note)+'</div>':'')+'</div></li>';
+      }).join("")+'</ul></div>';
+    }
+    html+='</div>';
+  }
+  $("#list").innerHTML=html;
+  document.querySelectorAll('input[data-ind]').forEach(i=>i.indeterminate=true);
+}
+function renderStats(){
+  const by={A:[0,0],B:[0,0],C:[0,0],X:[0,0]};
+  COS.forEach(c=>{ const t=eff(c); by[t][0]++; by[t][1]+=c.people.length; });
+  const nov=COS.filter(isOv).length;
+  $("#stats").innerHTML = TIERS.map(t=>'<div class="stat"><b>'+by[t][1]+'</b><span>'+t+' · '+esc(TN[t])+' ('+by[t][0]+' cos)</span></div>').join("")
+    +'<div class="stat"><b>'+sel.size+'</b><span>selected</span></div><div class="stat"><b>'+nov+'</b><span>overrides</span></div>';
+}
+
+/* ---------- events ---------- */
+$("#list").addEventListener("click", e=>{
+  const card=e.target.closest(".card"); if(!card) return;
+  const co=card.dataset.co, c=COS.find(x=>x.name===co);
+  const act=e.target.dataset.act || (e.target.closest("[data-act]")||{}).dataset?.act;
+  if(e.target.matches('input[data-act="selco"]')){
+    const ps=c.people.filter(p=>matchP(c,p)), all=ps.every(p=>sel.has(p.PersonId));
+    ps.forEach(p=>all?sel.delete(p.PersonId):sel.add(p.PersonId)); save(); render(); e.stopPropagation(); return;
+  }
+  if(e.target.matches('input[data-act="selp"]')){
+    const id=e.target.dataset.id; sel.has(id)?sel.delete(id):sel.add(id); save(); render(); return;
+  }
+  if(act==="ovsave"||act==="ovclear"){
+    if(act==="ovclear") delete OV[co];
+    else {
+      const t=card.querySelector('[data-act="ovtier"]').value, r=card.querySelector('[data-act="ovreason"]').value.trim(), s=card.querySelector('[data-act="ovscope"]').value;
+      if(t && t!==c.tier && !r){ toast("Add a one-line reason — that's what refines your ICP."); card.querySelector('[data-act="ovreason"]').focus(); return; }
+      if(!t && !r) delete OV[co]; else OV[co]={tier:t&&t!==c.tier?t:"", reason:r, scope:s};
+    }
+    save(); render(); toast(act==="ovclear"?"Override cleared":"Override saved"); return;
+  }
+  if(e.target.closest(".cb")) return;
+  if(e.target.closest('[data-act="toggle"]')){ open.has(co)?open.delete(co):open.add(co); render(); }
+});
+$("#list").addEventListener("keydown", e=>{
+  if(e.key==="Enter" && e.target.matches('[data-act="ovreason"]')){ e.preventDefault(); e.target.closest(".ovbox").querySelector('[data-act="ovsave"]').click(); }
+});
+function chipToggle(ch){
+  const on = ch.getAttribute("aria-pressed")!=="true";
+  ch.setAttribute("aria-pressed", on);
+  if(ch.dataset.tier){ on?F.tiers.add(ch.dataset.tier):F.tiers.delete(ch.dataset.tier); }
+  else F[ch.dataset.flag]=on;
+  render();
+}
+document.querySelectorAll(".chip").forEach(ch=>{
+  ch.addEventListener("click",()=>chipToggle(ch));
+  ch.addEventListener("keydown",e=>{ if(e.key===" "||e.key==="Enter"){ e.preventDefault(); chipToggle(ch); } });
+});
+$("#fSeg").onchange=e=>{F.seg=e.target.value; render();};
+$("#fSig").onchange=e=>{F.sig=e.target.value; render();};
+$("#fSen").onchange=e=>{F.sen=e.target.value; render();};
+$("#fFun").onchange=e=>{F.fun=e.target.value; render();};
+let qt; $("#q").oninput=e=>{ clearTimeout(qt); qt=setTimeout(()=>{F.q=e.target.value.trim().toLowerCase(); render();},120); };
+$("#evt").onchange=save;
+$("#bRec").onclick=()=>{ const s=recSet(); s.forEach(id=>sel.add(id)); save(); render(); toast("Added "+s.size+" recommended people to your selection"); };
+$("#bClear").onclick=()=>{ if(sel.size && !confirm("Clear all "+sel.size+" selected people?")) return; sel.clear(); save(); render(); };
+$("#bExpand").onclick=()=>{
+  const vis=visible(); const allOpen=vis.every(v=>open.has(v.c.name));
+  vis.forEach(v=>allOpen?open.delete(v.c.name):open.add(v.c.name));
+  $("#bExpand").textContent = allOpen?"Expand all":"Collapse all"; render();
+};
+
+/* ---------- export ---------- */
+function stamp(){ const d=new Date(); return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0"); }
+function slug(){ const ev=$("#evt").value.trim(); return ev? ev.toLowerCase().replace(/[^a-z0-9]+/g,"-").replace(/^-|-$/g,"")+"-" : ""; }
+$("#bExpSel").onclick=()=>{
+  if(!sel.size){ toast("Select some people first — or use Preselect shortlist."); return; }
+  const extra=["Selected","AITier","OverrideReason"];
+  const cols=[...header.filter(h=>!extra.includes(h)), ...extra];
+  if(!cols.includes("Event")) cols.push("Event");
+  const ev=$("#evt").value.trim(), rows=[];
+  for(const c of COS) for(const p of c.people) if(sel.has(p.PersonId)){
+    const o=OV[c.name]||{};
+    rows.push({...p, Tier:eff(c), TierName:TN[eff(c)], AITier:c.tier, OverrideReason:o.reason||"", Selected:"Y", Event:ev});
+  }
+  showExport("Shortlist — "+rows.length+" people", "Give this file to your AI for Stage 2 (research). If the download is blocked, copy the text below.", toCSV(cols,rows), slug()+"shortlist-"+stamp()+".csv");
+};
+$("#bExpOv").onclick=()=>{
+  const ev=$("#evt").value.trim();
+  const rows=COS.filter(isOv).map(c=>{ const o=OV[c.name]; return {Company:c.name, Segment:c.segment, AITier:c.tier, YourTier:o.tier||c.tier, Reason:o.reason, Scope:o.scope||"", Why:c.why, Event:ev}; });
+  if(!rows.length){ toast("No overrides yet — open a company card and set “Your tier”."); return; }
+  showExport("Overrides — "+rows.length+" companies", "Give this file to your AI and ask it to refine your rubric. It will propose changes for you to accept or reject.", toCSV(["Company","Segment","AITier","YourTier","Reason","Scope","Why","Event"],rows), slug()+"overrides-"+stamp()+".csv");
+};
+function download(text, filename){
+  try{
+    const b=new Blob(["﻿"+text],{type:"text/csv;charset=utf-8"});
+    const u=URL.createObjectURL(b), a=document.createElement("a");
+    a.href=u; a.download=filename; document.body.appendChild(a); a.click();
+    setTimeout(()=>{URL.revokeObjectURL(u); a.remove();},400);
+    return true;
+  }catch(e){ return false; }
+}
+function showExport(title, msg, text, filename){
+  $("#dTitle").textContent=title; $("#dMsg").textContent=msg; $("#csv").value=text; $("#csv").readOnly=true;
+  $("#dFoot").innerHTML='<button class="btn" id="dCopy" type="button">Copy to clipboard</button><button class="btn primary" id="dDl" type="button">Download '+esc(filename)+'</button>';
+  $("#dCopy").onclick=()=>copy(text);
+  $("#dDl").onclick=()=>{ download(text, filename); toast("Download started — if nothing appears, use Copy instead."); };
+  openDlg(); download(text, filename);
+}
+function copy(text){
+  const done=()=>toast("Copied");
+  if(navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(text).then(done, ()=>{ $("#csv").select(); document.execCommand("copy"); done(); });
+  else { $("#csv").select(); document.execCommand("copy"); done(); }
+}
+function openDlg(){ const d=$("#dlg"); if(d.showModal) d.showModal(); else d.setAttribute("open",""); }
+function closeDlg(){ const d=$("#dlg"); if(d.close) d.close(); else d.removeAttribute("open"); }
+$("#dClose").onclick=closeDlg;
+
+/* ---------- loading ---------- */
+function pasteDlg(){
+  $("#dTitle").textContent="Paste CSV"; $("#dMsg").textContent="Paste the scored CSV your AI produced (header row included). If it came in several chunks, paste them one after another — repeated header rows are ignored.";
+  $("#csv").value=""; $("#csv").readOnly=false;
+  $("#dFoot").innerHTML='<button class="btn primary" id="dLoad" type="button">Load</button>';
+  $("#dLoad").onclick=()=>{
+    let t=$("#csv").value.trim(); if(!t) return;
+    const lines=t.split(/\r?\n/).filter(l=>!/^```/.test(l.trim())), h=lines[0];
+    t=[h, ...lines.slice(1).filter(l=>l.trim()!==h.trim())].join("\n");
+    if(load(t,"pasted list")) closeDlg();
+  };
+  openDlg(); setTimeout(()=>$("#csv").focus(),50);
+}
+function readFile(f){ if(!f) return; const r=new FileReader(); r.onload=()=>load(r.result, f.name); r.readAsText(f); }
+["#bOpen","#bOpen2"].forEach(id=>$(id).onclick=()=>$("#file").click());
+["#bPaste","#bPaste2"].forEach(id=>$(id).onclick=pasteDlg);
+$("#file").onchange=e=>{ readFile(e.target.files[0]); e.target.value=""; };
+document.addEventListener("dragover", e=>{ e.preventDefault(); document.body.classList.add("drop"); });
+document.addEventListener("dragleave", e=>{ if(!e.relatedTarget) document.body.classList.remove("drop"); });
+document.addEventListener("drop", e=>{ e.preventDefault(); document.body.classList.remove("drop"); readFile(e.dataTransfer.files[0]); });
+function loadDemo(){ if(window.DEMO_SCORED_CSV){ load(window.DEMO_SCORED_CSV, "Demo — Northwind Bioanalysis at the Atlantic Regulated Bioanalysis Workshop (fictional)"); if(!$("#evt").value) $("#evt").value="Atlantic Regulated Bioanalysis Workshop 2027"; } }
+if(window.DEMO_SCORED_CSV){ $("#bDemo").hidden=false; $("#bDemo2").hidden=false; }
+["#bDemo","#bDemo2"].forEach(id=>$(id).onclick=loadDemo);
+
+/* theme */
+function applyTheme(t){ if(t) document.documentElement.setAttribute("data-theme",t); else document.documentElement.removeAttribute("data-theme"); }
+applyTheme(store.get("tlr-theme"));
+$("#bTheme").onclick=()=>{
+  const cur=document.documentElement.getAttribute("data-theme") || (matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light");
+  const next=cur==="dark"?"light":"dark"; applyTheme(next); store.set("tlr-theme",next);
+};
+
+let tt; function toast(m){ const t=$("#toast"); t.textContent=m; t.classList.add("on"); clearTimeout(tt); tt=setTimeout(()=>t.classList.remove("on"),2600); }
+
+/* ?csv=<url> loads a hosted CSV; demo pages autoload the demo */
+const qs=new URLSearchParams(location.search);
+if(qs.get("csv")){ fetch(qs.get("csv")).then(r=>r.text()).then(t=>load(t, qs.get("csv").split("/").pop())).catch(()=>toast("Couldn't fetch that CSV")); }
+else if(window.DEMO_AUTOLOAD) loadDemo();
+window.__tlr = {recSet, visible, sel, OV, load};
+})();
+</script>
+</body>
+</html>
