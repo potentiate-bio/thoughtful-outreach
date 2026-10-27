@@ -9,7 +9,7 @@ customer profile, research only the people you pick, and turn your disagreements
 a sharper ICP. **It never writes the outreach.** Finding the signal is the machine's job; what you
 say, how you say it and when stays yours.
 
-**[Try the live demo →](https://tools.potentiate.bio/)** (fictional data; lists you load never leave your browser)
+**[Try the live demo →](https://tools.potentiate.bio/thoughtful-outreach/)** (fictional data; lists you load never leave your browser)
 
 | Stage | What happens | You get |
 |---|---|---|
@@ -78,7 +78,7 @@ Open the target map, review, override, tick, export the shortlist. Then:
 > *Research this shortlist.* &nbsp;·&nbsp; *Refine my rubric from these overrides.*
 
 The viewers live in [`skills/target-list-research/assets/`](skills/target-list-research/assets/)
-and on the [demo site](https://tools.potentiate.bio/). Open them in a normal browser tab — in-app preview panes
+and on the [demo site](https://tools.potentiate.bio/thoughtful-outreach/). Open them in a normal browser tab — in-app preview panes
 often block downloads.
 
 ## What's in this repository

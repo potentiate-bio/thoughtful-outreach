@@ -2,7 +2,7 @@
 
 For AI chat tools that can't install skills or run code. Paste the prompt below into a new chat,
 then attach or paste your rubric and your list. It produces CSV text you paste into the hosted
-viewer at **https://tools.potentiate.bio/target-map.html** (or open `assets/target-map.html` from the download in your browser).
+viewer at **https://tools.potentiate.bio/thoughtful-outreach/target-map.html** (or open `assets/target-map.html` from the download in your browser).
 
 If your chat tool *does* let you upload skills (for example a Skills section in its settings), upload
 the whole `target-list-research` folder instead — you'll get the full workflow.
