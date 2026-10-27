@@ -120,7 +120,7 @@ for page, label in (("target-map.html", "Target map"), ("briefing.html", "Resear
 
 index = read(os.path.join(ROOT, "tools", "landing.html")).replace("https://github.com/potentiate-bio/thoughtful-outreach", REPO_URL)
 index = index.replace('<html lang="en" data-theme="light">', '<html lang="en">', 1)
-for label, name in (("Try the target map", "try_target_map"), ("See a research briefing", "see_briefing"), ("Get the skill", "get_skill")):
+for label, name in (("Try the target map", "try_target_map"), ("See a research briefing", "see_briefing"), ("Get the skill", "get_skill"), ("Read why I built it", "read_story")):
     index = index.replace(">" + label + "</a>", ' data-track="cta_click" data-track-name="%s">%s</a>' % (name, label), 1)
 with open(os.path.join(DOCS, "index.html"), "w", encoding="utf-8") as f:
     f.write(hosted(index))
