@@ -230,7 +230,7 @@ footer{border-top-color:var(--line) !important}
       <div class="sub" id="dsname">Load a scored list to begin.</div>
     </div>
     <div class="actions">
-      <label class="event" for="evt">Event <input id="evt" type="text" placeholder="optional — e.g. Spring Summit 2027"></label>
+      <label class="event" for="evt">Event <input id="evt" type="text" placeholder="Optional, e.g. Spring Summit 2027"></label>
       <button class="btn" id="bOpen" type="button">Open CSV</button>
       <button class="btn" id="bPaste" type="button">Paste CSV</button>
       <button class="btn" id="bDemo" type="button" hidden>Load demo</button>
@@ -279,7 +279,7 @@ footer{border-top-color:var(--line) !important}
 <div class="wrap" id="emptyWrap">
   <div class="empty" id="empty">
     <h2>Load a scored list</h2>
-    <p>Open or drag in a <code>scored.csv</code> produced by the target-list-research skill, or paste the CSV text your AI chat gave you. Lists you load stay in this browser — nothing is uploaded. This site only counts visits with Google Analytics.</p>
+    <p>Open or drag in a <code>scored.csv</code> produced by the target-list-research skill, or paste the CSV text your AI chat gave you. Everything stays in this browser. Nothing is uploaded.</p>
     <div class="actions" style="justify-content:center">
       <button class="btn primary" id="bOpen2" type="button">Open CSV</button>
       <button class="btn" id="bPaste2" type="button">Paste CSV</button>
@@ -352,7 +352,7 @@ function load(text, name){
   const {header:h, data} = parseCSV(text);
   const need = ["Name","Company","Tier"];
   const miss = need.filter(c=>!h.includes(c));
-  if(miss.length){ toast("Missing column(s): "+miss.join(", ")+" — is this a scored.csv?"); return false; }
+  if(miss.length){ toast("Missing column(s): "+miss.join(", ")+". Is this a scored.csv?"); return false; }
   header=h; ROWS=data; NAME=name||"scored.csv"; KEY="tlr-map:"+hash(text);
   TN={...DEF_TN}; byId=new Map();
   const cmap=new Map();
@@ -474,12 +474,12 @@ function render(){
       +'<span class="cname">'+esc(c.name)+'</span><span class="tags">'+tags+'</span>'
       +'<span class="count">'+ps.length+(ps.length!==c.people.length?' of '+c.people.length:'')+' · '+nsel+' sel</span><span class="caret" aria-hidden="true">›</span></div>';
     if(isOpen){
-      html+='<div class="cb"><p class="why"><b>Why '+c.tier+':</b> '+esc(c.why||"—")+'</p>';
+      html+='<div class="cb"><p class="why"><b>Why '+c.tier+':</b> '+esc(c.why||"(none)")+'</p>';
       if(c.signals.length) html+='<div class="sigs" aria-label="Signals">'+c.signals.map(t=>/\?\s*$/.test(t)?tag("sig unc",t,"Unconfirmed"):tag("sig",t)).join("")+'</div>';
       if(c.bord && c.bnote) html+='<div class="bnote"><b>Borderline:</b> '+esc(c.bnote)+'</div>';
       html+='<div class="ovbox"><label for="ot-'+hash(c.name)+'">Your tier</label><select id="ot-'+hash(c.name)+'" data-act="ovtier">'
         +['', ...TIERS].map(x=>'<option value="'+x+'"'+((o.tier||"")===x?' selected':'')+'>'+(x?x+' · '+esc(TN[x]):'Keep AI tier ('+c.tier+')')+'</option>').join("")
-        +'</select><input type="text" data-act="ovreason" placeholder="Why? (one line — this is what refines your ICP)" value="'+esc(o.reason||"")+'" aria-label="Override reason">'
+        +'</select><input type="text" data-act="ovreason" placeholder="Why? One line. This is what refines your ICP." value="'+esc(o.reason||"")+'" aria-label="Override reason">'
         +'<select data-act="ovscope" aria-label="Scope of this override"><option value=""'+(!o.scope?' selected':'')+'>Scope?</option><option value="event"'+(o.scope==="event"?' selected':'')+'>This event</option><option value="core"'+(o.scope==="core"?' selected':'')+'>Core ICP</option></select>'
         +'<button class="btn" type="button" data-act="ovsave">Save</button>'+(o.tier||o.reason?'<button class="btn ghost" type="button" data-act="ovclear">Clear</button>':'')+'</div>';
       html+='<ul class="people">'+ps.map(p=>{
@@ -519,7 +519,7 @@ $("#list").addEventListener("click", e=>{
     if(act==="ovclear") delete OV[co];
     else {
       const t=card.querySelector('[data-act="ovtier"]').value, r=card.querySelector('[data-act="ovreason"]').value.trim(), s=card.querySelector('[data-act="ovscope"]').value;
-      if(t && t!==c.tier && !r){ toast("Add a one-line reason — that's what refines your ICP."); card.querySelector('[data-act="ovreason"]').focus(); return; }
+      if(t && t!==c.tier && !r){ toast("Add a one-line reason. That's what refines your ICP."); card.querySelector('[data-act="ovreason"]').focus(); return; }
       if(!t && !r) delete OV[co]; else OV[co]={tier:t&&t!==c.tier?t:"", reason:r, scope:s};
     }
     save(); render(); toast(act==="ovclear"?"Override cleared":"Override saved"); return;
@@ -559,7 +559,7 @@ $("#bExpand").onclick=()=>{
 function stamp(){ const d=new Date(); return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0"); }
 function slug(){ const ev=$("#evt").value.trim(); return ev? ev.toLowerCase().replace(/[^a-z0-9]+/g,"-").replace(/^-|-$/g,"")+"-" : ""; }
 $("#bExpSel").onclick=()=>{
-  if(!sel.size){ toast("Select some people first — or use Preselect shortlist."); return; }
+  if(!sel.size){ toast("Select some people first, or use Preselect shortlist."); return; }
   const extra=["Selected","AITier","OverrideReason"];
   const cols=[...header.filter(h=>!extra.includes(h)), ...extra];
   if(!cols.includes("Event")) cols.push("Event");
@@ -568,13 +568,13 @@ $("#bExpSel").onclick=()=>{
     const o=OV[c.name]||{};
     rows.push({...p, Tier:eff(c), TierName:TN[eff(c)], AITier:c.tier, OverrideReason:o.reason||"", Selected:"Y", Event:ev});
   }
-  showExport("Shortlist — "+rows.length+" people", "Give this file to your AI for Stage 2 (research). If the download is blocked, copy the text below.", toCSV(cols,rows), slug()+"shortlist-"+stamp()+".csv");
+  showExport("Shortlist: "+rows.length+" people", "Give this file to your AI for Stage 2 (research). If the download is blocked, copy the text below.", toCSV(cols,rows), slug()+"shortlist-"+stamp()+".csv");
 };
 $("#bExpOv").onclick=()=>{
   const ev=$("#evt").value.trim();
   const rows=COS.filter(isOv).map(c=>{ const o=OV[c.name]; return {Company:c.name, Segment:c.segment, AITier:c.tier, YourTier:o.tier||c.tier, Reason:o.reason, Scope:o.scope||"", Why:c.why, Event:ev}; });
-  if(!rows.length){ toast("No overrides yet — open a company card and set “Your tier”."); return; }
-  showExport("Overrides — "+rows.length+" companies", "Give this file to your AI and ask it to refine your rubric. It will propose changes for you to accept or reject.", toCSV(["Company","Segment","AITier","YourTier","Reason","Scope","Why","Event"],rows), slug()+"overrides-"+stamp()+".csv");
+  if(!rows.length){ toast("No overrides yet. Open a company card and set “Your tier”."); return; }
+  showExport("Overrides: "+rows.length+" companies", "Give this file to your AI and ask it to refine your rubric. It will propose changes for you to accept or reject.", toCSV(["Company","Segment","AITier","YourTier","Reason","Scope","Why","Event"],rows), slug()+"overrides-"+stamp()+".csv");
 };
 function download(text, filename){
   try{
@@ -589,7 +589,7 @@ function showExport(title, msg, text, filename){
   $("#dTitle").textContent=title; $("#dMsg").textContent=msg; $("#csv").value=text; $("#csv").readOnly=true;
   $("#dFoot").innerHTML='<button class="btn" id="dCopy" type="button">Copy to clipboard</button><button class="btn primary" id="dDl" type="button">Download '+esc(filename)+'</button>';
   $("#dCopy").onclick=()=>copy(text);
-  $("#dDl").onclick=()=>{ download(text, filename); toast("Download started — if nothing appears, use Copy instead."); };
+  $("#dDl").onclick=()=>{ download(text, filename); toast("Download started. If nothing appears, use Copy instead."); };
   openDlg(); download(text, filename);
 }
 function copy(text){
@@ -603,7 +603,7 @@ $("#dClose").onclick=closeDlg;
 
 /* ---------- loading ---------- */
 function pasteDlg(){
-  $("#dTitle").textContent="Paste CSV"; $("#dMsg").textContent="Paste the scored CSV your AI produced (header row included). If it came in several chunks, paste them one after another — repeated header rows are ignored.";
+  $("#dTitle").textContent="Paste CSV"; $("#dMsg").textContent="Paste the scored CSV your AI produced (header row included). If it came in several chunks, paste them one after another. Repeated header rows are ignored.";
   $("#csv").value=""; $("#csv").readOnly=false;
   $("#dFoot").innerHTML='<button class="btn primary" id="dLoad" type="button">Load</button>';
   $("#dLoad").onclick=()=>{
@@ -621,7 +621,7 @@ $("#file").onchange=e=>{ readFile(e.target.files[0]); e.target.value=""; };
 document.addEventListener("dragover", e=>{ e.preventDefault(); document.body.classList.add("drop"); });
 document.addEventListener("dragleave", e=>{ if(!e.relatedTarget) document.body.classList.remove("drop"); });
 document.addEventListener("drop", e=>{ e.preventDefault(); document.body.classList.remove("drop"); readFile(e.dataTransfer.files[0]); });
-function loadDemo(){ if(window.DEMO_SCORED_CSV){ load(window.DEMO_SCORED_CSV, "Demo — Northwind Bioanalysis at the Atlantic Regulated Bioanalysis Workshop (fictional)"); if(!$("#evt").value) $("#evt").value="Atlantic Regulated Bioanalysis Workshop 2027"; } }
+function loadDemo(){ if(window.DEMO_SCORED_CSV){ load(window.DEMO_SCORED_CSV, "Demo: Northwind Bioanalysis at the Atlantic Regulated Bioanalysis Workshop (fictional)"); if(!$("#evt").value) $("#evt").value="Atlantic Regulated Bioanalysis Workshop 2027"; } }
 if(window.DEMO_SCORED_CSV){ $("#bDemo").hidden=false; $("#bDemo2").hidden=false; }
 ["#bDemo","#bDemo2"].forEach(id=>$(id).onclick=loadDemo);
 

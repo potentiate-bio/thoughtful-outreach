@@ -73,7 +73,7 @@ TRACK = """<script>
 })();
 </script>
 """
-PRIVACY = "Lists you load stay in this browser — nothing is uploaded. This site only counts visits with Google Analytics."
+PRIVACY = "Lists you load stay in this browser. Nothing is uploaded. This site only counts visits with Google Analytics."
 
 
 def header(current, back=None):
