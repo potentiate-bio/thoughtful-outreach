@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-theme="light">
 <head>
 <!-- Google Tag Manager -->
 <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
@@ -11,7 +11,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Research Briefing</title>
+<title>Research briefing · Thoughtful outreach · potentiate.bio</title>
 <style>
 :root{
   --bg:#f6f6f4; --panel:#fff; --panel2:#fbfbfa; --ink:#1a1a18; --ink2:#5c5c56; --ink3:#8a8a82;
@@ -153,30 +153,75 @@ footer a{color:inherit}
 .src{font-size:12px;margin-top:4px;color:var(--ink3);word-break:break-all}
 .src a{color:var(--ink2)}
 </style>
+<link rel="icon" type="image/png" sizes="32x32" href="assets/pb-icon-32.png">
+<link rel="apple-touch-icon" href="assets/pb-icon-180.png">
+<meta property="og:image" content="https://tools.potentiate.bio/thoughtful-outreach/assets/pb-icon-512.png">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+/* potentiate.bio look for the hosted demo pages only (tools.potentiate.bio).
+   Mint → butter → coral soft wash, deep-teal ink, warm-white surfaces, Poppins. */
+:root,:root[data-theme="dark"],:root[data-theme="light"]{
+  --pb-ink:#244E54; --pb-coral:#F27A7D; --pb-butter:#F7D486; --pb-mint:#C5F9D7; --pb-white:#FBFAF6;
+  --bg:transparent; --panel:rgba(251,250,246,.94); --panel2:#F3F1E8; --ink:#244E54; --ink2:#4E6F73; --ink3:#7F9497;
+  --line:rgba(36,78,84,.16); --line2:rgba(36,78,84,.09); --sel:#244E54; --focus:#244E54;
+  --a:#0f7a5a; --a-bg:#e1f4ea; --b:#8a5e08; --b-bg:#faefd2; --c:#2a5fa8; --c-bg:#e5eefa; --x:#6f6f68; --x-bg:#ecebe5;
+  --spot:#8b2f7a; --spot-bg:#f8e8f5; --deal:#a83232; --deal-bg:#fbe6e4; --warn:#8a5a00; --warn-bg:#fdf1d6; --ov:#5b3fc4; --ov-bg:#eeeafc;
+  color-scheme:light;
+}
+html{background:var(--pb-white)}
+body{
+  font-family:"Poppins",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif !important;
+  color:var(--pb-ink);
+  background:
+    linear-gradient(180deg,rgba(251,250,246,.55),rgba(251,250,246,.55)),
+    linear-gradient(180deg,var(--pb-mint) 0%,var(--pb-butter) 52%,var(--pb-coral) 100%) fixed !important;
+  min-height:100vh;
+}
+button,input,select,textarea{font-family:inherit}
+h1,h2,h3{letter-spacing:-.01em}
+#bTheme{display:none !important}                 /* the brand is a light look */
+.bar{background:rgba(251,250,246,.78) !important;backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom-color:var(--line) !important}
+.btn.primary,.chip[aria-pressed="true"]:not([class*=" t"]){background:var(--pb-ink) !important;border-color:var(--pb-ink) !important;color:var(--pb-white) !important}
+.btn,.chip,select,.search,.event input{border-radius:999px}
+.btn.primary{font-weight:500}
+.card,.stat,.empty{box-shadow:0 1px 2px rgba(36,78,84,.06)}
+footer{border-top-color:var(--line) !important}
+
+/* ---- site header ---- */
+.pb-head{position:sticky;top:0;z-index:20;background:rgba(251,250,246,.72);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid rgba(36,78,84,.10)}
+.pb-head .pb-in{max-width:1180px;margin:0 auto;padding:8px 16px;display:flex;gap:14px;align-items:center}
+.pb-head a{color:var(--pb-ink);text-decoration:none}
+.pb-logo{display:flex;align-items:center;flex:none}
+.pb-logo img{height:30px;width:auto;display:block}
+.pb-crumbs{display:flex;align-items:center;gap:6px;font-size:13.5px;min-width:0;overflow:hidden;white-space:nowrap}
+.pb-crumbs a{opacity:.75}.pb-crumbs a:hover{opacity:1;text-decoration:underline}
+.pb-crumbs span[aria-current]{font-weight:500;overflow:hidden;text-overflow:ellipsis}
+.pb-crumbs .sep{opacity:.4}
+.pb-right{margin-left:auto;display:flex;gap:10px;align-items:center;flex:none}
+.pb-right .pb-link{font-size:13.5px;opacity:.8}.pb-right .pb-link:hover{opacity:1}
+.pb-sub{background:var(--pb-ink);color:var(--pb-white) !important;padding:6px 14px;border-radius:999px;font-size:13.5px;font-weight:500}
+.pb-sub:hover{background:#1b3d42}
+.pb-back{max-width:1180px;margin:14px auto 0;padding:0 16px}
+.pb-back a{display:inline-flex;align-items:center;gap:6px;color:var(--pb-ink);text-decoration:none;font-size:14px;font-weight:500;
+  background:rgba(251,250,246,.85);border:1px solid rgba(36,78,84,.16);border-radius:999px;padding:6px 14px 6px 10px}
+.pb-back a:hover{background:var(--pb-white);border-color:rgba(36,78,84,.35)}
+.pb-back svg{width:16px;height:16px}
+@media (max-width:640px){.pb-crumbs .pb-mid,.pb-crumbs .sep.pb-mid,.pb-right .pb-link{display:none}.pb-logo img{height:26px}}
+.bar{top:47px !important}                         /* sit below the sticky site header */
+@media (max-width:640px){.pb-head{position:static}}
+</style>
 </head>
 <body>
 <!-- Google Tag Manager (noscript) -->
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5L6TGJMX" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <!-- End Google Tag Manager (noscript) -->
-<style>
-.pb-bar{background:#244E54;color:#FBFAF6;font:500 13px/1.2 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif}
-.pb-bar .pb-in{max-width:1180px;margin:0 auto;padding:9px 16px;display:flex;gap:14px;align-items:center;justify-content:space-between}
-.pb-bar a{color:inherit;text-decoration:none}
-.pb-bar .pb-mark{font-weight:800;letter-spacing:-.02em;font-size:15px}
-.pb-bar .pb-mark span{color:#F27A7D}
-.pb-bar nav{display:flex;gap:14px;align-items:center}
-.pb-bar nav a{opacity:.85}.pb-bar nav a:hover{opacity:1}
-.pb-bar .pb-sub{background:#F27A7D;color:#244E54;padding:5px 10px;border-radius:999px;font-weight:700;opacity:1}
-@media (max-width:480px){.pb-bar .pb-hide{display:none}}
-</style>
-<div class="pb-bar" data-track-area="nav"><div class="pb-in">
-  <a class="pb-mark" href="https://potentiate.bio" data-track="nav_click" data-track-name="logo">p<span>.</span>b</a>
-  <nav>
-    <a class="pb-hide" href="index.html" data-track="nav_click" data-track-name="tools_home">Thoughtful outreach</a>
-    <a href="https://potentiate.bio" data-track="nav_click" data-track-name="potentiate_bio">potentiate.bio</a>
-    <a class="pb-sub" href="https://potentiate.beehiiv.com/subscribe?utm_source=tools.potentiate.bio&utm_medium=website&utm_campaign=subscribe_button" data-track="subscribe_click" data-track-name="subscribe">Subscribe</a>
-  </nav>
-</div></div>
+<header class="pb-head" data-track-area="nav"><div class="pb-in">
+  <a class="pb-logo" href="https://potentiate.bio" aria-label="potentiate.bio home" data-track="nav_click" data-track-name="logo"><img src="assets/pb-mark.png" alt="p.b" width="54" height="30"></a>
+  <nav class="pb-crumbs" aria-label="Breadcrumb"><a href="https://tools.potentiate.bio/" data-track="nav_click" data-track-name="tools_home">Tools</a><span class="sep pb-mid" aria-hidden="true">›</span><a class="pb-mid" href="index.html" data-track="nav_click" data-track-name="tool_home">Thoughtful outreach</a><span class="sep" aria-hidden="true">›</span><span aria-current="page">Research briefing</span></nav>
+  <div class="pb-right"><a class="pb-link" href="https://tools.potentiate.bio/" data-track="nav_click" data-track-name="all_tools">All tools</a><a class="pb-sub" href="https://potentiate.beehiiv.com/subscribe?utm_source=tools.potentiate.bio&utm_medium=website&utm_campaign=subscribe_button" data-track="subscribe_click" data-track-name="subscribe">Subscribe</a></div>
+</div></header>
+<div class="pb-back" data-track-area="page"><a href="index.html" data-track="nav_click" data-track-name="back_to_tool"><svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M10 3 5 8l5 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>Back to Thoughtful outreach</a></div>
 <script>
 (function(){
   window.dataLayer = window.dataLayer || [];

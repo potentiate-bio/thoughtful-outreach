@@ -1,37 +1,40 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-theme="light">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Target List Research</title>
+<title>Thoughtful Outreach</title>
 <meta name="description" content="An open-source AI skill that scores attendee and prospect lists against your ideal customer profile, researches the people worth meeting, and learns from your overrides. Research only — you write the outreach.">
 <style>
-:root{--bg:#f6f6f4;--panel:#fff;--ink:#1a1a18;--ink2:#5c5c56;--ink3:#8a8a82;--line:#e3e3de;--a:#0f7a5a;--a-bg:#e4f3ed;--ov:#5b3fc4;--ov-bg:#eeeafc;--b:#9a6a10;--b-bg:#f8efdc;color-scheme:light}
-@media (prefers-color-scheme:dark){:root{--bg:#131313;--panel:#1b1b1a;--ink:#ececE8;--ink2:#a3a39c;--ink3:#77776f;--line:#2e2e2c;--a:#4bc79b;--a-bg:#12332a;--ov:#a996ff;--ov-bg:#241d3f;--b:#d9a441;--b-bg:#33280f;color-scheme:dark}}
-*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.55 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif}
-.w{max-width:860px;margin:0 auto;padding:48px 16px 64px}
-h1{font-size:clamp(28px,5vw,40px);line-height:1.1;letter-spacing:-.02em;margin:0 0 12px}
-.lede{font-size:18px;color:var(--ink2);max-width:640px;margin:0 0 28px}
-.cta{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:44px}
-.cta a{text-decoration:none;border:1px solid var(--line);background:var(--panel);color:var(--ink);padding:10px 16px;border-radius:9px;font-weight:550}
-.cta a.p{background:var(--ink);color:var(--bg);border-color:var(--ink)}
-.steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;margin:0 0 40px;padding:0;list-style:none;counter-reset:s}
-.steps li{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:16px;counter-increment:s}
-.steps li::before{content:counter(s);display:inline-grid;place-items:center;width:24px;height:24px;border-radius:50%;background:var(--a-bg);color:var(--a);font-size:13px;font-weight:700;margin-bottom:8px}
-.steps li.r::before{background:var(--ov-bg);color:var(--ov)}
-.steps b{display:block;margin-bottom:4px}.steps span{color:var(--ink2);font-size:14.5px}
-h2{font-size:19px;margin:0 0 10px}
-.p2{color:var(--ink2);margin:0 0 14px}
-ul.pr{padding-left:20px;margin:0 0 36px}ul.pr li{margin:6px 0}
-.note{background:var(--b-bg);color:var(--b);border-radius:10px;padding:12px 14px;font-size:14.5px;margin-bottom:36px}
-footer{color:var(--ink3);font-size:13.5px;border-top:1px solid var(--line);padding-top:16px}
+*{box-sizing:border-box}body{margin:0;line-height:1.6;font-size:16px}
+.w{max-width:900px;margin:0 auto;padding:40px 16px 64px}
+.eyebrow{display:inline-block;font-size:12.5px;font-weight:500;letter-spacing:.06em;text-transform:uppercase;background:rgba(251,250,246,.7);border:1px solid rgba(36,78,84,.16);border-radius:999px;padding:4px 12px;margin-bottom:16px}
+h1{font-size:clamp(30px,5.2vw,46px);line-height:1.08;letter-spacing:-.03em;font-weight:600;margin:0 0 14px;max-width:760px}
+.lede{font-size:18px;font-weight:300;max-width:660px;margin:0 0 28px}
+.cta{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:48px}
+.cta a{text-decoration:none;border:1px solid rgba(36,78,84,.22);background:rgba(251,250,246,.88);color:#244E54;padding:11px 20px;border-radius:999px;font-weight:500;font-size:15px}
+.cta a:hover{background:#FBFAF6;border-color:#244E54}
+.cta a.p{background:#244E54;color:#FBFAF6;border-color:#244E54}
+.cta a.p:hover{background:#1b3d42}
+.steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:12px;margin:0 0 44px;padding:0;list-style:none;counter-reset:s}
+.steps li{background:rgba(251,250,246,.9);border:1px solid rgba(36,78,84,.12);border-radius:16px;padding:18px;counter-increment:s}
+.steps li::before{content:counter(s);display:inline-grid;place-items:center;width:28px;height:28px;border-radius:50%;background:#244E54;color:#FBFAF6;font-size:13px;font-weight:600;margin-bottom:10px}
+.steps li.r::before{background:#F27A7D;color:#244E54}
+.steps b{display:block;margin-bottom:4px;font-weight:600}.steps span{font-size:14.5px;font-weight:300}
+.panel{background:rgba(251,250,246,.9);border:1px solid rgba(36,78,84,.12);border-radius:16px;padding:22px 24px;margin-bottom:16px}
+h2{font-size:19px;font-weight:600;margin:0 0 10px}
+ul.pr{padding-left:20px;margin:0}ul.pr li{margin:6px 0;font-weight:300}ul.pr b{font-weight:600}
+.p2{margin:0;font-weight:300}
+.note{font-size:14px;font-weight:300;margin:22px 0 32px;padding-left:12px;border-left:3px solid #F27A7D}
+footer{font-size:13.5px;opacity:.8;border-top:1px solid rgba(36,78,84,.16);padding-top:16px}
 footer a{color:inherit}
 </style>
 </head>
 <body>
-<div class="w">
+<main class="w">
+  <span class="eyebrow">Open-source AI skill</span>
   <h1>Find the right people on any list — then write to them yourself.</h1>
-  <p class="lede">An open-source AI skill for business developers. It scores a conference attendee list (or any prospect list) against your ideal customer profile, researches only the people you pick, and turns your disagreements into a sharper ICP. It never writes the outreach.</p>
+  <p class="lede">Score a conference attendee list (or any prospect list) against your ideal customer profile, research only the people you pick, and turn your disagreements into a sharper ICP. It never writes the outreach.</p>
   <div class="cta">
     <a class="p" href="target-map.html">Try the target map</a>
     <a href="briefing.html">See a research briefing</a>
@@ -39,26 +42,29 @@ footer a{color:inherit}
   </div>
 
   <ol class="steps">
-    <li><b>Score</b><span>Every name on the list gets a tier, a segment and a one-line reason — nobody is skipped because you ran out of patience at row 400.</span></li>
+    <li><b>Score</b><span>Every name gets a tier, a segment, signals and a one-line reason — nobody is skipped because you ran out of patience at row 400.</span></li>
     <li><b>Review &amp; pick</b><span>Filter, read the reasons, override what's wrong (with a why), and tick the people worth your time.</span></li>
     <li><b>Research</b><span>Two verified highlights per person, a confidence level, agenda and CRM cross-checks. “Unsure” is an allowed answer.</span></li>
     <li class="r"><b>Refine</b><span>Your overrides become proposed rubric changes — for this event only or for your core ICP. You accept or reject each.</span></li>
   </ol>
 
-  <h2>Principles</h2>
-  <ul class="pr">
-    <li><b>You own the ICP.</b> If you can't describe it, the AI can't apply it.</li>
-    <li><b>Research only.</b> The machine finds the signal; what you say, how and when stays yours.</li>
-    <li><b>Unsure is an answer.</b> No guessed facts, no guessed email addresses by default.</li>
-    <li><b>Everything is auditable.</b> Every tier has a reason; every highlight has a source.</li>
-  </ul>
+  <section class="panel">
+    <h2>Principles</h2>
+    <ul class="pr">
+      <li><b>You own the ICP.</b> If you can't describe it, the AI can't apply it.</li>
+      <li><b>Research only.</b> The machine finds the signal; what you say, how and when stays yours.</li>
+      <li><b>Unsure is an answer.</b> No guessed facts, no guessed email addresses by default.</li>
+      <li><b>Everything is auditable.</b> Every tier has a reason; every highlight has a source.</li>
+    </ul>
+  </section>
+  <section class="panel">
+    <h2>Works with</h2>
+    <p class="p2">Claude, ChatGPT / Codex, Gemini, Cursor and other tools that support the open Agent Skills format — plus a paste-in prompt for any AI chat. Setup instructions are in the repository README.</p>
+  </section>
 
-  <div class="note">The demo uses an entirely fictional vendor, event, companies and people. Lists you load into these pages never leave your browser; this site only counts visits with Google Analytics.</div>
-
-  <h2>Works with</h2>
-  <p class="p2">Claude, ChatGPT / Codex, Gemini, Cursor and other tools that support the open Agent Skills format — plus a paste-in prompt for any AI chat. Setup instructions are in the repository README.</p>
+  <p class="note">The demo uses an entirely fictional vendor, event, companies and people. Lists you load into these pages never leave your browser; this site only counts visits with Google Analytics.</p>
 
   <footer>MIT licensed · <a href="https://potentiate.bio">potentiate.bio</a></footer>
-</div>
+</main>
 </body>
 </html>
