@@ -15,7 +15,7 @@ h1{font-size:clamp(28px,5vw,40px);line-height:1.1;letter-spacing:-.02em;margin:0
 .cta{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:44px}
 .cta a{text-decoration:none;border:1px solid var(--line);background:var(--panel);color:var(--ink);padding:10px 16px;border-radius:9px;font-weight:550}
 .cta a.p{background:var(--ink);color:var(--bg);border-color:var(--ink)}
-.steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin:0 0 40px;padding:0;list-style:none;counter-reset:s}
+.steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;margin:0 0 40px;padding:0;list-style:none;counter-reset:s}
 .steps li{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:16px;counter-increment:s}
 .steps li::before{content:counter(s);display:inline-grid;place-items:center;width:24px;height:24px;border-radius:50%;background:var(--a-bg);color:var(--a);font-size:13px;font-weight:700;margin-bottom:8px}
 .steps li.r::before{background:var(--ov-bg);color:var(--ov)}
@@ -53,7 +53,7 @@ footer a{color:inherit}
     <li><b>Everything is auditable.</b> Every tier has a reason; every highlight has a source.</li>
   </ul>
 
-  <div class="note">The demo uses an entirely fictional vendor, event, companies and people. Nothing you load into these pages leaves your browser.</div>
+  <div class="note">The demo uses an entirely fictional vendor, event, companies and people. Lists you load into these pages never leave your browser; this site only counts visits with Google Analytics.</div>
 
   <h2>Works with</h2>
   <p class="p2">Claude, ChatGPT / Codex, Gemini, Cursor and other tools that support the open Agent Skills format — plus a paste-in prompt for any AI chat. Setup instructions are in the repository README.</p>

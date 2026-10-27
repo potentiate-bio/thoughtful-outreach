@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "Research-only business development skills: score attendee and prospect lists against your ICP, research the shortlist, and refine your ICP from your overrides.",
   "author": { "name": "potentiate.bio", "url": "https://potentiate.bio" },
-  "homepage": "https://potentiate-bio.github.io/thoughtful-outreach/",
+  "homepage": "https://tools.potentiate.bio/",
   "repository": "https://github.com/potentiate-bio/thoughtful-outreach",
   "license": "MIT",
   "keywords": ["business-development", "sales", "conferences", "icp", "prospect-research", "events"]

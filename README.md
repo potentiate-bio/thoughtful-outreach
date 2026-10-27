@@ -9,7 +9,7 @@ customer profile, research only the people you pick, and turn your disagreements
 a sharper ICP. **It never writes the outreach.** Finding the signal is the machine's job; what you
 say, how you say it and when stays yours.
 
-**[Try the live demo →](https://potentiate-bio.github.io/thoughtful-outreach/)** (fictional data; nothing you load leaves your browser)
+**[Try the live demo →](https://tools.potentiate.bio/)** (fictional data; lists you load never leave your browser)
 
 | Stage | What happens | You get |
 |---|---|---|
@@ -78,7 +78,7 @@ Open the target map, review, override, tick, export the shortlist. Then:
 > *Research this shortlist.* &nbsp;·&nbsp; *Refine my rubric from these overrides.*
 
 The viewers live in [`skills/target-list-research/assets/`](skills/target-list-research/assets/)
-and on the [demo site](https://potentiate-bio.github.io/thoughtful-outreach/). Open them in a normal browser tab — in-app preview panes
+and on the [demo site](https://tools.potentiate.bio/). Open them in a normal browser tab — in-app preview panes
 often block downloads.
 
 ## What's in this repository
@@ -102,7 +102,9 @@ The skill works on personal data (names, titles, employers). You are responsible
 right to use the lists you load and for how you contact people afterwards — unsolicited email is
 regulated differently by country (e.g. GDPR and ePrivacy rules in Europe, CAN-SPAM in the US).
 That's why email-pattern guessing is off by default and every address is labelled with where it
-came from. The viewers run entirely in your browser; nothing is uploaded.
+came from. The viewers run entirely in your browser; nothing is uploaded. The hosted demo at
+tools.potentiate.bio counts visits with Google Analytics; the copies in this repository contain no
+analytics or tracking of any kind.
 
 All companies, people and events in `examples/` and on the demo site are fictional. Domains use
 the reserved `.example` suffix.
