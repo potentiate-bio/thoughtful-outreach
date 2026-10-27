@@ -32,6 +32,12 @@ You need three things: the skill, a rubric describing your ICP, and a list.
 
 ### 1. Install the skill
 
+> **Where it works best.** Tested in Claude and in Gemini. It works best in Claude (or any agent
+> that can run code), where the list is cleaned and counted by a script and research is checked
+> against sources. The paste-in prompt works in plain chat, with caveats: on long lists, chat
+> models can drop, merge or invent rows and overstate confidence on people they can't look up.
+> Check row counts and spot-check sources before you rely on the output.
+
 <details open>
 <summary><b>Claude</b> (claude.ai, Claude Code, desktop)</summary>
 

@@ -4,7 +4,7 @@ description: Score a list of people and companies (a conference attendee list, a
 license: MIT
 metadata:
   author: potentiate.bio
-  version: "1.0.0"
+  version: "1.0.1"
 ---
 
 # Target list research
@@ -35,7 +35,11 @@ Refine first so the rubric is current, then Stage 2.
    start a second research pass on unsure names unless the user explicitly asks in this run.
 4. **Every call is auditable.** Each company gets a one-line `Why` for its tier. Each research
    highlight is a verifiable fact with a source.
-5. **Use only lists the user is entitled to use.** Work from exports and files the user provides.
+5. **The list is the list.** Score every input row exactly once and only those rows: never add,
+   invent, merge or drop people. Check the output row count against the input. `high` or `medium`
+   confidence needs a source you actually opened in this run; without one, the answer is `unsure`.
+   If a file can't be read, say so and ask for it again rather than working from memory.
+6. **Use only lists the user is entitled to use.** Work from exports and files the user provides.
    Don't scrape platforms behind a login unless the user confirms the platform's terms allow it.
 
 ## Files this skill reads and writes
@@ -203,4 +207,4 @@ and anything that went wrong. The next run should inherit it instead of rediscov
   each batch so a long run can resume.
 - **Chat only, no files:** follow `prompts/chat-version.md` — it processes the list in chunks and
   emits CSV text the user pastes into the hosted viewer.
-- **Tight output limits:** split long lists into chunks of ~100 rows and say which chunk you're on.
+- **Tight output limits:** split long lists into chunks of ~50 rows and say which chunk you're on.

@@ -1,5 +1,19 @@
 # Changelog
 
+## 1.0.1
+
+From testing the paste-in prompt in plain chat (Gemini):
+
+- **List integrity.** The skill and the paste-in prompt now require every input row to be scored
+  exactly once, with row counts checked per chunk. Chat models were adding and merging people.
+- **Confidence needs a source.** `high` or `medium` research confidence now requires a source
+  opened in the run; otherwise the answer is `unsure`.
+- **Unreadable files.** The model says so and asks for a paste instead of working from memory.
+- **Example rubric** now shows the pre-run state, so models don't apply the demo's Refine
+  outcomes before the user has made them. The outcomes are in `refine-guide.md`.
+- Chat chunks are 50 rows instead of 100. README notes that it works best in Claude.
+- Hosted demo: the "Added to your selection" notice is now readable.
+
 ## 1.0.0 — first public release
 
 The skill is generalised from a private version used to prepare for industry conferences.

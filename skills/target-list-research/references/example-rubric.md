@@ -109,11 +109,10 @@ A scientific workshop: heavy with competitor scientists, in-house pharma bioanal
 - Regulators: tag `Regulator: listen, don't pitch`; never in the shortlist.
 - Timing: request meetings in the workshop app before day 1; posters are the best place for
   unplanned conversations with sponsor scientists.
-- Central labs exhibiting here are pitching specialty bioanalysis → X for this event *(added
-  after the 2027 run — see changelog)*.
 
 ## Changelog
 
-- 2027-03-14 — Event profile "Atlantic Regulated Bioanalysis Workshop": central labs → X (3 overrides, consistent reasons: exhibiting bioanalysis).
-- 2027-03-14 — Core: academic medical centers running only investigator-initiated trials → X (1 override, user scoped it as core).
+*This is the rubric as it stood before the demo run. Apply it as written. For what changed
+after the run, see `refine-guide.md`; don't pre-apply those changes.*
+
 - 2027-01-05 — Initial rubric.
