@@ -157,7 +157,7 @@ footer a{color:inherit}
 <link rel="apple-touch-icon" href="assets/pb-icon-180.png">
 <meta property="og:image" content="https://tools.potentiate.bio/thoughtful-outreach/assets/pb-icon-512.png">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&family=Unbounded:wght@600;700;800&display=swap" rel="stylesheet">
 <style>
 /* potentiate.bio look for the hosted demo pages only (tools.potentiate.bio).
    Mint → butter → coral soft wash, deep-teal ink, warm-white surfaces, Poppins. */
@@ -179,7 +179,6 @@ body{
   min-height:100vh;
 }
 button,input,select,textarea{font-family:inherit}
-h1,h2,h3{letter-spacing:-.01em}
 #bTheme{display:none !important}                 /* the brand is a light look */
 .bar{background:rgba(251,250,246,.78) !important;backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom-color:var(--line) !important}
 .btn.primary,.chip[aria-pressed="true"]:not([class*=" t"]){background:var(--pb-ink) !important;border-color:var(--pb-ink) !important;color:var(--pb-white) !important}
@@ -211,6 +210,10 @@ footer{border-top-color:var(--line) !important}
 .bar{top:47px !important}                         /* sit below the sticky site header */
 @media (max-width:640px){.pb-head{position:static}}
 .toast{color:var(--pb-white) !important;background:var(--pb-ink) !important}
+
+/* Headings: Unbounded (brand display face); body, labels and buttons stay Poppins */
+h1,h2,h3{font-family:"Unbounded","Poppins",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif !important;letter-spacing:-.02em;font-weight:700}
+h2,h3{font-weight:600}
 </style>
 </head>
 <body>

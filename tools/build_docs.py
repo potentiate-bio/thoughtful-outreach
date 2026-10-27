@@ -55,7 +55,7 @@ HEAD_EXTRA = ('<link rel="icon" type="image/png" sizes="32x32" href="assets/pb-i
               '<link rel="apple-touch-icon" href="assets/pb-icon-180.png">\n'
               '<meta property="og:image" content="https://tools.potentiate.bio/thoughtful-outreach/assets/pb-icon-512.png">\n'
               '<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>\n'
-              '<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">\n'
+              '<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&family=Unbounded:wght@600;700;800&display=swap" rel="stylesheet">\n'
               "<style>\n" + read(os.path.join(BRAND, "hosted.css")) + "</style>\n")
 BACK_ICON = '<svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M10 3 5 8l5 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>'
 TRACK = """<script>

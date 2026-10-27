@@ -17,7 +17,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 *{box-sizing:border-box}body{margin:0;line-height:1.6;font-size:16px}
 .w{max-width:900px;margin:0 auto;padding:40px 16px 64px}
 .eyebrow{display:inline-block;font-size:12.5px;font-weight:500;letter-spacing:.06em;text-transform:uppercase;background:rgba(251,250,246,.7);border:1px solid rgba(36,78,84,.16);border-radius:999px;padding:4px 12px;margin-bottom:16px}
-h1{font-size:clamp(30px,5.2vw,46px);line-height:1.08;letter-spacing:-.03em;font-weight:600;margin:0 0 14px;max-width:760px}
+h1{font-size:clamp(28px,4.4vw,40px);line-height:1.12;letter-spacing:-.03em;font-weight:700;margin:0 0 14px;max-width:760px}
 .lede{font-size:18px;font-weight:300;max-width:660px;margin:0 0 28px}
 .cta{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:40px}
 .cta a{text-decoration:none;border:1px solid rgba(36,78,84,.22);background:rgba(251,250,246,.88);color:#244E54;padding:11px 20px;border-radius:999px;font-weight:500;font-size:15px}
@@ -28,9 +28,9 @@ h1{font-size:clamp(30px,5.2vw,46px);line-height:1.08;letter-spacing:-.03em;font-
 .steps li{background:rgba(251,250,246,.9);border:1px solid rgba(36,78,84,.12);border-radius:16px;padding:18px;counter-increment:s}
 .steps li::before{content:counter(s);display:inline-grid;place-items:center;width:28px;height:28px;border-radius:50%;background:#244E54;color:#FBFAF6;font-size:13px;font-weight:600;margin-bottom:10px}
 .steps li.r::before{background:#F27A7D;color:#244E54}
-.steps b{display:block;margin-bottom:4px;font-weight:600}.steps span{font-size:14.5px;font-weight:300}
+.steps b{display:block;margin-bottom:6px;font-family:"Unbounded","Poppins",sans-serif;font-weight:600;font-size:15.5px;letter-spacing:-.01em}.steps span{font-size:14.5px;font-weight:300}
 .panel{background:rgba(251,250,246,.9);border:1px solid rgba(36,78,84,.12);border-radius:16px;padding:22px 24px;margin-bottom:16px}
-h2{font-size:19px;font-weight:600;margin:0 0 10px}
+h2{font-size:18px;font-weight:600;margin:0 0 12px}
 ul.pr{padding-left:20px;margin:0}ul.pr li{margin:6px 0;font-weight:300}ul.pr b{font-weight:600}
 .p2{margin:0;font-weight:300}
 .note{font-size:14px;font-weight:300;margin:24px 0 32px;padding-left:12px;border-left:3px solid #F27A7D}
@@ -41,7 +41,7 @@ footer a{color:inherit}
 <link rel="apple-touch-icon" href="assets/pb-icon-180.png">
 <meta property="og:image" content="https://tools.potentiate.bio/thoughtful-outreach/assets/pb-icon-512.png">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&family=Unbounded:wght@600;700;800&display=swap" rel="stylesheet">
 <style>
 /* potentiate.bio look for the hosted demo pages only (tools.potentiate.bio).
    Mint → butter → coral soft wash, deep-teal ink, warm-white surfaces, Poppins. */
@@ -63,7 +63,6 @@ body{
   min-height:100vh;
 }
 button,input,select,textarea{font-family:inherit}
-h1,h2,h3{letter-spacing:-.01em}
 #bTheme{display:none !important}                 /* the brand is a light look */
 .bar{background:rgba(251,250,246,.78) !important;backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom-color:var(--line) !important}
 .btn.primary,.chip[aria-pressed="true"]:not([class*=" t"]){background:var(--pb-ink) !important;border-color:var(--pb-ink) !important;color:var(--pb-white) !important}
@@ -95,6 +94,10 @@ footer{border-top-color:var(--line) !important}
 .bar{top:47px !important}                         /* sit below the sticky site header */
 @media (max-width:640px){.pb-head{position:static}}
 .toast{color:var(--pb-white) !important;background:var(--pb-ink) !important}
+
+/* Headings: Unbounded (brand display face); body, labels and buttons stay Poppins */
+h1,h2,h3{font-family:"Unbounded","Poppins",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif !important;letter-spacing:-.02em;font-weight:700}
+h2,h3{font-weight:600}
 </style>
 </head>
 <body>
