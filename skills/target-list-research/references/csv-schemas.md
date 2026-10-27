@@ -61,6 +61,6 @@ All `scored.csv` columns for the selected people, plus:
 | `ScopeWarning` | Text if their work looks outside the rubric's scope |
 | `Email` | Address, if known |
 | `EmailBasis` | `crm`, `pattern` (only if the user enabled guessing) or `none` |
-| `Speaker` | Event mode: `Day · time · room — session title` |
+| `Speaker` | Event mode: `Day · time · room: session title` |
 | `TitleMismatch` | Event mode: badge vs agenda difference, in words |
 | `Sources` | URLs separated by ` | ` |

@@ -38,11 +38,11 @@ assays — method development, validation and sample analysis.
 
 | Segment | Default tier |
 |---|---|
-| Clinical-stage sponsor — small molecule | A |
-| Clinical-stage sponsor — biologics | A |
-| Clinical-stage sponsor — oligo / peptide | A |
+| Clinical-stage sponsor (small molecule )| A |
+| Clinical-stage sponsor (biologics )| A |
+| Clinical-stage sponsor (oligo / peptide )| A |
 | Full-service clinical CRO (subcontracts bioanalysis) | A (priority 2) |
-| Large pharma — outsources overflow | B |
+| Large pharma (outsources overflow) | B |
 | Preclinical sponsor (IND within ~12 months) | B |
 | Sponsor with in-house regulated lab | B |
 | Academic medical center (investigator-initiated trials) | B |
@@ -71,7 +71,7 @@ assays — method development, validation and sample analysis.
 | `IND planned`, `IND-enabling`, `GLP tox ongoing` | timing for B | press releases, investor decks |
 | `Rare disease (small n)` | small, specialised studies | registries |
 | `Outsources overflow`, `Preferred-vendor list` | how large pharma buys — a reason to stay in B rather than X | partner pages, vendor-day talks |
-| Relationship tags: `Competitor`, `Regulator — listen, don't pitch`, `Refers specialty testing`, `Co-marketing potential`, `No clinical programs` | sets the kind of conversation | — |
+| Relationship tags: `Competitor`, `Regulator: listen, don't pitch`, `Refers specialty testing`, `Co-marketing potential`, `No clinical programs` | sets the kind of conversation | — |
 
 ## Hard exclusions
 
@@ -106,7 +106,7 @@ Leadership · Other
 A scientific workshop: heavy with competitor scientists, in-house pharma bioanalysts and regulators.
 - In-house pharma lab scientists are **peers here, not buyers** — the reason large pharma stays in
   B at this event. Talk shop; don't pitch.
-- Regulators: tag `Regulator — listen, don't pitch`; never in the shortlist.
+- Regulators: tag `Regulator: listen, don't pitch`; never in the shortlist.
 - Timing: request meetings in the workshop app before day 1; posters are the best place for
   unplanned conversations with sponsor scientists.
 - Central labs exhibiting here are pitching specialty bioanalysis → X for this event *(added

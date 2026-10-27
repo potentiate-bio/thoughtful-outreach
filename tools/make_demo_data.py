@@ -19,11 +19,11 @@ EVENT = "Atlantic Regulated Bioanalysis Workshop 2027"
 TIER_NAMES = {"A": "Direct fit", "B": "Plausible", "C": "Partner / referral", "X": "Out of scope"}
 
 # Segment keys -> title pool
-SPONSOR_SM = "Clinical-stage sponsor — small molecule"
-SPONSOR_BIO = "Clinical-stage sponsor — biologics"
-SPONSOR_OLIGO = "Clinical-stage sponsor — oligo / peptide"
+SPONSOR_SM = "Clinical-stage sponsor (small molecule)"
+SPONSOR_BIO = "Clinical-stage sponsor (biologics)"
+SPONSOR_OLIGO = "Clinical-stage sponsor (oligo / peptide)"
 CLIN_CRO = "Full-service clinical CRO (subcontracts bioanalysis)"
-PHARMA = "Large pharma — outsources overflow"
+PHARMA = "Large pharma (outsources overflow)"
 PRECLIN = "Preclinical sponsor (IND within ~12 months)"
 INHOUSE = "Sponsor with in-house regulated lab"
 IIT = "Academic medical center (investigator-initiated trials)"
@@ -41,23 +41,23 @@ ANIMAL = "Animal health"
 CO = [
  # ---- A1: clinical-stage sponsors without a regulated lab ----
  ("Quillfern Therapeutics","A",1,SPONSOR_BIO,"strong","Ph1 active · 2 trials; US sites; ADA required; No in-house regulated lab",
-  "Two antibodies in Ph1 at US sites and no regulated bioanalysis lab — PK and ADA testing must be outsourced","Y","Open: ADA method transfer",""),
+  "Two antibodies in Ph1 at US sites and no regulated bioanalysis lab; PK and ADA testing must be outsourced","Y","Open: ADA method transfer",""),
  ("Saltmarsh Pharmaceuticals","A",1,SPONSOR_SM,"","Ph2 active · 1 trial; LC-MS/MS PK; US sites; No in-house regulated lab",
   "Small molecule in a Ph2 dose-ranging study; PK samples need validated LC-MS/MS","N","",""),
  ("Tidewren Therapeutics","A",1,SPONSOR_OLIGO,"partial","Ph1 active · 1 trial; Hybrid LBA/LC-MS; ADA required",
-  "Antisense oligo in Ph1 — needs hybrid PK methods plus immunogenicity","N","",""),
+  "Antisense oligo in Ph1; needs hybrid PK methods plus immunogenicity","N","",""),
  ("Corvane Biosciences","A",1,SPONSOR_BIO,"strong","Ph2 active · 4 trials; ADA + NAb required; US sites",
   "Four Ph2 trials of a fusion protein; ADA and neutralising-antibody testing across sites","N","",""),
  ("Emberlyne Bio","A",1,SPONSOR_SM,"","Ph1 started this quarter; LC-MS/MS PK; No in-house regulated lab",
   "First-in-human began this quarter; small team, outsources all clinical lab work","Y","",""),
  ("Halvard Immunotherapies","A",1,SPONSOR_BIO,"strong","Ph1 active · 1 trial; ADA required; Uses FSP model; No in-house regulated lab",
-  "Bispecific in Ph1; runs studies through a functional service provider — bioanalysis chosen separately","N","",""),
+  "Bispecific in Ph1; runs studies through a functional service provider; bioanalysis chosen separately","N","",""),
  ("Brindlecove Therapeutics","A",1,SPONSOR_OLIGO,"partial","Ph2 active · 2 trials; Hybrid LBA/LC-MS",
   "siRNA program in Ph2; hybrid LC-MS methods for the conjugate","N","",""),
  ("Ostrander Bio","A",1,SPONSOR_SM,"","Ph1 active · 1 trial; Ph2 active · 1 trial; LC-MS/MS PK; Metabolite ID",
-  "Two small-molecule trials, including a food-effect study; metabolite work likely","Y","Closed lost (turnaround time) — warm re-entry",""),
+  "Two small-molecule trials, including a food-effect study; metabolite work likely","Y","Closed lost (turnaround time); warm re-entry",""),
  ("Mirefield Therapeutics","A",1,SPONSOR_BIO,"partial","Ph1 active · 1 trial; ADA required; Hiring bioanalytical scientists",
-  "Antibody in Ph1 with ADA needs","N","","Recent job postings for regulated bioanalysis scientists — they may be building an in-house lab"),
+  "Antibody in Ph1 with ADA needs","N","","Recent job postings for regulated bioanalysis scientists; they may be building an in-house lab"),
  ("Larchmere Biologics","A",1,SPONSOR_BIO,"strong","Ph2 active · 1 trial; Rare disease (small n); ADA + NAb required",
   "Enzyme replacement therapy in Ph2; immunogenicity is a central safety question","N","",""),
  ("Sundry Point Therapeutics","A",1,SPONSOR_SM,"","Ph2 active · 3 trials; LC-MS/MS PK; US sites",
@@ -65,7 +65,7 @@ CO = [
  ("Harrowgate Bio","A",1,SPONSOR_OLIGO,"","Ph1 active · 1 trial; Peptide PK; No in-house regulated lab",
   "Peptide therapeutic in Ph1; LC-MS/MS PK for a peptide","N","",""),
  ("Oakhollow Therapeutics","A",1,SPONSOR_BIO,"partial","Ph1 active · 1 trial; Sites outside the US only; ADA required",
-  "Antibody in Ph1 with ADA needs","N","","All trial sites are outside the US — sample logistics to a US lab may not work"),
+  "Antibody in Ph1 with ADA needs","N","","All trial sites are outside the US; sample logistics to a US lab may not work"),
  ("Thistledown Bio","A",1,SPONSOR_SM,"","Ph1 active · 1 trial; LC-MS/MS PK; Drug-interaction study planned",
   "Small molecule in Ph1 with a drug-interaction study announced","N","",""),
  ("Seaholm Biologics","A",1,SPONSOR_BIO,"strong","Ph1 active · 2 trials; ADA required; US sites",
@@ -74,7 +74,7 @@ CO = [
  ("Ridgeline Clinical Research","A",2,CLIN_CRO,"","No in-house regulated lab; Specialty-lab vendor program",
   "Full-service clinical CRO without its own bioanalysis lab; selects specialty-lab subcontractors for sponsor studies","Y","",""),
  ("Halcyon Trial Partners","A",2,CLIN_CRO,"","Specialty-lab vendor program",
-  "Early-phase clinical CRO that subcontracts PK and ADA testing","N","","Acquired a small lab last year — may now compete for some of this work"),
+  "Early-phase clinical CRO that subcontracts PK and ADA testing","N","","Acquired a small lab last year; may now compete for some of this work"),
  ("Lattice Clinical","A",2,CLIN_CRO,"","No in-house regulated lab",
   "Mid-size clinical CRO; bioanalysis always subcontracted","N","",""),
  # ---- B: large pharma (preferred-vendor lists, long qualification) ----
@@ -86,9 +86,9 @@ CO = [
   "Large pharma outsourcing exploratory biomarker work","N","",""),
  # ---- B ----
  ("Fernhollow Bio","B",0,PRECLIN,"","IND planned; GLP tox ongoing",
-  "Preclinical; will need clinical bioanalysis within a year","N","","IND announced for next quarter — move to A once filed"),
+  "Preclinical; will need clinical bioanalysis within a year","N","","IND announced for next quarter; move to A once filed"),
  ("Cindermoss Bio","B",0,PRECLIN,"partial","IND-enabling; ADA required?",
-  "IND-enabling antibody program; timing to first-in-human unclear","N","","Press release hints at a first-in-human date — if confirmed, tier A"),
+  "IND-enabling antibody program; timing to first-in-human unclear","N","","Press release hints at a first-in-human date; if confirmed, tier A"),
  ("Velloway Bio","B",0,PRECLIN,"","IND-enabling; LC-MS/MS PK",
   "Small molecule in IND-enabling studies","N","",""),
  ("Gullbrook Biosciences","B",0,PRECLIN,"","IND-enabling",
@@ -105,17 +105,17 @@ CO = [
  ("Northbank Central Laboratories","C",0,CENTRAL,"","Refers specialty testing",
   "Global central lab for safety labs; refers specialty bioanalysis","Y","",""),
  ("Cobblestone Clinical Labs","C",0,CENTRAL,"","Refers specialty testing?",
-  "Central lab — partner for kit-building and logistics","N","",""),
+  "Central lab; partner for kit-building and logistics","N","",""),
  ("Tarnwell Central Lab Services","C",0,CENTRAL,"","Refers specialty testing?",
   "Regional central lab","N","",""),
  ("Tamberlane Diagnostics","C",0,DX,"","Co-marketing potential",
-  "Diagnostics company — co-development and referral partner","N","",""),
+  "Diagnostics company; co-development and referral partner","N","",""),
  ("Cairnhill Clinical Pharmacology Advisors","C",0,CONSULT,"","Refers specialty testing",
   "Consultants who recommend bioanalysis vendors to small sponsors","Y","",""),
  ("Lattice & Vine Regulatory","C",0,CONSULT,"","",
   "Regulatory consultancy","N","",""),
  ("Pellham Instruments","C",0,VENDOR,"","Co-marketing potential",
-  "Instrument vendor — application-note and co-marketing partner","N","",""),
+  "Instrument vendor; application-note and co-marketing partner","N","",""),
  ("Wrenfield Reagents","C",0,VENDOR,"","Co-marketing potential",
   "Assay reagent supplier","N","",""),
  # ---- X ----
@@ -127,17 +127,17 @@ CO = [
   "Direct competitor","N","",""),
  ("Matrix & Method Labs","X",0,COMPETITOR,"","Competitor",
   "Competitor in biomarker assays","N","",""),
- ("National Drug Review Agency","X",0,REG,"","Regulator — listen, don't pitch",
-  "Fictional regulator — relationship and learning, never a sales conversation","N","",""),
- ("Bioanalysis Standards Consortium","X",0,REG,"","Regulator — listen, don't pitch",
+ ("National Drug Review Agency","X",0,REG,"","Regulator: listen, don't pitch",
+  "Fictional regulator; relationship and learning, never a sales conversation","N","",""),
+ ("Bioanalysis Standards Consortium","X",0,REG,"","Regulator: listen, don't pitch",
   "Industry standards group","N","",""),
  ("Juniper Rock Ventures","X",0,INVESTOR,"","","Venture investor","N","",""),
  ("Morrow Street Capital","X",0,INVESTOR,"","","Life-science fund","N","",""),
  ("Lumen Discovery Tools","X",0,TOOLS,"","No clinical programs","Discovery assay kits; no clinical work","N","",""),
  ("Copperleaf Screening","X",0,TOOLS,"","No clinical programs","High-throughput screening services","N","",""),
  ("Bramblegate Bio","X",0,TOOLS,"","No clinical programs; IND-enabling?",
-  "Discovery-stage only","N","","Pipeline page now lists an IND-enabling program — may belong in B"),
- ("Fennick Animal Health","X",0,ANIMAL,"","No clinical programs","Animal-health only — outside our regulated scope","N","",""),
+  "Discovery-stage only","N","","Pipeline page now lists an IND-enabling program; may belong in B"),
+ ("Fennick Animal Health","X",0,ANIMAL,"","No clinical programs","Animal-health only; outside our regulated scope","N","",""),
 ]
 
 FIRST = """Ava Ben Chiara Dev Elena Farid Grace Hiro Imani Jonas Kavya Liam Mei Nadia Omar Priya Quentin Rosa
@@ -165,7 +165,7 @@ T_CLINCRO = [("Director, Laboratory Vendor Management",D,OUT),("Associate Direct
  ("Clinical Research Associate",J,OPS),("Head of Early-Phase Operations",E,OPS)]
 T_PHARMA = [("Director, External Bioanalysis",D,OUT),("Senior Scientist, Regulated Bioanalysis",S,BA),
  ("Executive Director, DMPK",E,BA),("Principal Scientist, Immunogenicity",S,IM),("Associate Director, Clinical Pharmacology",D,CP),
- ("Scientist II, Bioanalysis",M,BA),("Senior Manager, Strategic Sourcing — Labs",M,OUT),("Director, Biomarker Operations",D,BM)]
+ ("Scientist II, Bioanalysis",M,BA),("Senior Manager, Strategic Sourcing; Labs",M,OUT),("Director, Biomarker Operations",D,BM)]
 T_COMP = [("Study Director, GLP",S,LAB),("Principal Scientist, Ligand Binding",S,BA),("Director, Business Development",D,BD),
  ("Lab Manager",M,LAB),("Senior Scientist, LC-MS/MS",S,BA),("Account Executive",M,BD)]
 T_CENTRAL = [("Director, Partnerships",D,BD),("Head of Specialty Testing",E,LAB),("Account Manager",M,BD),("Senior Project Manager",M,OPS)]
@@ -235,7 +235,7 @@ ost = next(c for c in CO if c[0] == "Ostrander Bio")
 first = next(r for r in scored if r["Company"] == "Ostrander Bio" and r["Recommended"] == "Y")
 pid += 1
 scored.append({**first, "PersonId": f"p{pid:04d}", "BadgeCompany": "Ostrander Pharmaceuticals (former name)",
-               "Note": f"Same person as {first['PersonId']} — badge shows the company's former name"})
+               "Note": f"Same person as {first['PersonId']}; badge shows the company's former name"})
 raw.append({"Name": first["Name"], "Title": first["Title"], "Company": "Ostrander Pharmaceuticals"})
 # Raw-list quirks for prepare_list.py: an exact duplicate and a look-alike period (U+2024)
 raw.append(dict(raw[3]))
@@ -328,42 +328,42 @@ def pick(fun):
         x.update(Confidence="medium", Focus=FOCUS[fun], Highlight1=H1[fun][0], Tenure="2 yrs in role")
     return x
 spk1, spk2 = pick(IM), pick(OUT)
-spk1["Speaker"] = "Day 1 · 10:30 · Hall B — Tiered ADA assays: setting cut points for small clinical studies"
-spk2["Speaker"] = "Day 2 · 14:00 · Room 3 — Panel: choosing and overseeing specialty-lab vendors"
+spk1["Speaker"] = "Day 1 · 10:30 · Hall B: Setting ADA cut points for small clinical studies"
+spk2["Speaker"] = "Day 2 · 14:00 · Room 3: Choosing and overseeing specialty-lab vendors (panel)"
 spk2["TitleMismatch"] = f"Agenda lists them as VP, Clinical Outsourcing; badge says {spk2['Title']}"
 warn = next((x for x in research if x["Confidence"] == "medium" and x["Function"] == BA and not x["Speaker"]), None) or next(x for x in research if x["Confidence"] == "medium" and not x["Speaker"])
-warn["ScopeWarning"] = "Recent talks are about discovery-stage screening only — check they touch the clinical programs"
+warn["ScopeWarning"] = "Recent talks are about discovery-stage screening only; check they touch the clinical programs"
 write("research.csv", research, list(research[0].keys()))
 
 with open(os.path.join(OUTDIR, "agenda.md"), "w") as f:
-    f.write(f"""# {EVENT} — agenda excerpt (fictional)
+    f.write(f"""# {EVENT}: agenda excerpt (fictional)
 
 ## Day 1
 
-**10:30 · Hall B — Tiered ADA assays: setting cut points for small clinical studies**
+**10:30 · Hall B: Setting ADA cut points for small clinical studies**
 {spk1['Name']}, {spk1['Title']}, {spk1['Company']}
 
-**13:15 · Room 2 — Keynote: one year of harmonised bioanalytical guidance**
+**13:15 · Room 2: One year of harmonised bioanalytical guidance (keynote)**
 Fictional speaker, National Drug Review Agency
 
-**16:00 · Poster hall — Hybrid LBA/LC-MS methods for oligonucleotides**
+**16:00 · Poster hall: Hybrid LBA/LC-MS methods for oligonucleotides**
 Poster session
 
 ## Day 2
 
-**14:00 · Room 3 — Panel: choosing and overseeing specialty-lab vendors**
+**14:00 · Room 3: Choosing and overseeing specialty-lab vendors (panel)**
 {spk2['Name']}, VP, Clinical Outsourcing, {spk2['Company']}
 Panelist from Cairnhill Clinical Pharmacology Advisors
 """)
 
 overrides = [
- {"Company": "Northbank Central Laboratories", "Segment": CENTRAL, "AITier": "C", "YourTier": "X", "Reason": "At this workshop central labs are exhibiting specialty bioanalysis — they're competing, not referring", "Scope": "event"},
+ {"Company": "Northbank Central Laboratories", "Segment": CENTRAL, "AITier": "C", "YourTier": "X", "Reason": "At this workshop central labs are exhibiting specialty bioanalysis; they're competing, not referring", "Scope": "event"},
  {"Company": "Cobblestone Clinical Labs", "Segment": CENTRAL, "AITier": "C", "YourTier": "X", "Reason": "Booth lists PK and ADA testing", "Scope": "event"},
- {"Company": "Tarnwell Central Lab Services", "Segment": CENTRAL, "AITier": "C", "YourTier": "X", "Reason": "Same — pitching bioanalysis here", "Scope": "event"},
+ {"Company": "Tarnwell Central Lab Services", "Segment": CENTRAL, "AITier": "C", "YourTier": "X", "Reason": "Same; pitching bioanalysis here", "Scope": "event"},
  {"Company": "Cindermoss Bio", "Segment": PRECLIN, "AITier": "B", "YourTier": "A", "Reason": "Press release confirms first-in-human in Q1", "Scope": ""},
  {"Company": "Velloway Bio", "Segment": PRECLIN, "AITier": "B", "YourTier": "A", "Reason": "IND filed last month", "Scope": ""},
  {"Company": "Eastmoor University Medical Center", "Segment": IIT, "AITier": "B", "YourTier": "X", "Reason": "Investigator-initiated trials almost never fund regulated bioanalysis", "Scope": "core"},
- {"Company": "Halcyon Trial Partners", "Segment": CLIN_CRO, "AITier": "A", "YourTier": "A", "Reason": "Their acquired lab only runs safety labs — still a buyer", "Scope": ""},
+ {"Company": "Halcyon Trial Partners", "Segment": CLIN_CRO, "AITier": "A", "YourTier": "A", "Reason": "Their acquired lab only runs safety labs; still a buyer", "Scope": ""},
 ]
 write("overrides-example.csv", overrides, ["Company", "Segment", "AITier", "YourTier", "Reason", "Scope"])
 
